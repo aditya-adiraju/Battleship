@@ -3,8 +3,8 @@ package model;
 public class OceanMap extends Map {
     public static final double PERCENTAGE_OF_BOARD = 0.05;
     private static final String EMPTY_SQUARE = " ";
-    private static final String INJURED_SHIP = " ";
-    private static final String SUNKEN_SHIP = " ";
+    private static final String INJURED_SHIP = "I";
+    private static final String SUNKEN_SHIP = "X";
     int numberOfShips;
     int maximumNumberOfShips;
 
@@ -25,5 +25,10 @@ public class OceanMap extends Map {
     // EFFECTS: returns true if a ship is present at a given coordinate
     boolean isHit(int x, int y) {
         return !this.board[x][y].equals(EMPTY_SQUARE);
+    }
+
+    // EFFECTS: checks whether there are any ships left on the board
+    boolean isOver() {
+        return false;
     }
 }

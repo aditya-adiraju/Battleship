@@ -16,6 +16,10 @@ public class BattleShip {
         }
     }
 
+    public int getSize() {
+        return size;
+    }
+
     public List<Point> getCoordinates() {
         return coordinates;
     }
@@ -31,17 +35,30 @@ public class BattleShip {
             newX = (int) coordinate.getX();
             newY = (int) coordinate.getY();
 
-            newX += midpoint.x;
-            newY += midpoint.y;
+            newX -= midpoint.x;
+            newY -= midpoint.y;
 
             temp = newX;
             newX = -newY;
             newY =  temp;
 
-            newX -= midpoint.x;
-            newY -= midpoint.y;
+            newX += midpoint.x;
+            newY += midpoint.y;
 
             coordinate.setLocation(newX, newY);
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: translates coordinates to be w.r.t. given coordinate
+    public void translate(int x, int y) {
+
+    }
+
+    // REQUIRES: Point(x, y) must be in coordinates
+    // MODIFIES: this
+    // EFFECTS: remove given coordinate
+    public void removeCoordinate(int x, int y) {
+
     }
 }

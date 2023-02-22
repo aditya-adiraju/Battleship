@@ -9,6 +9,10 @@ public abstract class Map {
         this.board = new String[size][size];
     }
 
+    public String[][] getBoard() {
+        return board;
+    }
+
     // REQUIRES: size > x, y >= 0
     // MODIFIES: this
     // EFFECTS: changes value of square at the given coordinate to given string
