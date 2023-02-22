@@ -30,7 +30,7 @@ class BattleShipTest {
 
     @Test
     void testConstructor() {
-        List<Point> expectedResult = new ArrayList<Point>();
+        List<Point> expectedResult = new ArrayList<>();
         expectedResult.add(new Point(0, 0));
 
         assertEquals(expectedResult, bs1.getCoordinates());
@@ -47,7 +47,7 @@ class BattleShipTest {
 
     @Test
     void testRotate() {
-        List<Point> expectedResult = new ArrayList<Point>();
+        List<Point> expectedResult = new ArrayList<>();
         expectedResult.add(new Point(1, -1));
         expectedResult.add(new Point(1, 0));
         expectedResult.add(new Point(1, 1));
@@ -57,7 +57,7 @@ class BattleShipTest {
 
     @Test
     void testRotate4Times() {
-        List<Point> expectedResult = new ArrayList<Point>();
+        List<Point> expectedResult = new ArrayList<>();
         expectedResult.add(new Point(0, 0));
         expectedResult.add(new Point(1, 0));
         expectedResult.add(new Point(2, 0));
@@ -72,7 +72,7 @@ class BattleShipTest {
 
     @Test
     void testRotateBothNonZeroCoordinates() {
-        List<Point> expectedResult = new ArrayList<Point>();
+        List<Point> expectedResult = new ArrayList<>();
         expectedResult.add(new Point(6, 1));
         expectedResult.add(new Point(5, 2));
         expectedResult.add(new Point(4, 3));
@@ -85,7 +85,7 @@ class BattleShipTest {
 
     @Test
     void testTranslate() {
-        List<Point> expectedResult = new ArrayList<Point>();
+        List<Point> expectedResult = new ArrayList<>();
         expectedResult.add(new Point(3, 7));
         expectedResult.add(new Point(4, 7));
 
@@ -95,10 +95,17 @@ class BattleShipTest {
 
     @Test
     void testRemoveCoordinate() {
-        List<Point> expectedResult = new ArrayList<Point>();
+        List<Point> expectedResult = new ArrayList<>();
         expectedResult.add(new Point(0, 1));
 
         bs2.removeCoordinate(0, 0);
         assertEquals(expectedResult, bs2.getCoordinates());
+    }
+
+    @Test
+    void testIsEmpty() {
+      bs2.removeCoordinate(0, 0);
+      bs2.removeCoordinate(1, 0);
+      assertTrue(bs1.isEmpty());
     }
 }

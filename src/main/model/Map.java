@@ -12,7 +12,9 @@ public abstract class Map {
     Map(int size) {
         this.size = size;
         this.board = new String[size][size];
-        Arrays.fill(this.board, EMPTY_SQUARE);
+        for (String[] row: this.board) {
+            Arrays.fill(row, " ");
+        }
     }
 
     public String[][] getBoard() {

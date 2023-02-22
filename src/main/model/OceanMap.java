@@ -14,6 +14,10 @@ public class OceanMap extends Map {
         this.maxNumberOfShips = (int) (PERCENTAGE_OF_BOARD * size * size);
     }
 
+    public int getNumberOfShips() {
+        return numberOfShips;
+    }
+
     public int getMaxNumberOfShips() {
         return maxNumberOfShips;
     }

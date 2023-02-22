@@ -7,7 +7,7 @@ import java.awt.Graphics;
 
 public class BattleShip {
     int size;
-    private List<Point> coordinates = new ArrayList<Point>();
+    private List<Point> coordinates = new ArrayList<>();
 
     public BattleShip(int size) {
         this.size = size;
@@ -60,5 +60,10 @@ public class BattleShip {
     // EFFECTS: remove given coordinate
     public void removeCoordinate(int x, int y) {
 
+    }
+
+    //EFFECTS: checks whether there are any unstruck coordinates in ship
+    public boolean isEmpty() {
+        return false;
     }
 }

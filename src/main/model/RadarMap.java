@@ -7,8 +7,6 @@ import java.util.List;
 public class RadarMap extends Map {
     private static final String HIT_SQUARE = "X";
     private static final String MISSED_SQUARE = "O";
-    private List<Point> hits = new ArrayList<Point>();
-    private List<Point> misses = new ArrayList<Point>();
 
     RadarMap(int size) {
         super(size);
