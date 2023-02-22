@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RadarMap extends Map {
-
-    private static final String EMPTY_SQUARE = " ";
     private static final String HIT_SQUARE = "X";
     private static final String MISSED_SQUARE = "O";
     private List<Point> hits = new ArrayList<Point>();
@@ -16,7 +14,7 @@ public class RadarMap extends Map {
         super(size);
     }
 
-    // REQUIRES: size > x, y >= 0
+    // REQUIRES: 0 <= x < size, 0 <= y < size
     // MODIFIES: this
     // EFFECTS: launches missile at given coordinates to opp board, true if it hits and false if miss
     boolean launchMissile(Player opponent, int x, int y) {
