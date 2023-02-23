@@ -3,7 +3,10 @@ package model;
 import java.util.Arrays;
 
 public abstract class Map {
-    static final String EMPTY_SQUARE = " ";
+    // RESOURCE USED: to get extended unicode characters
+    // https://stackoverflow.com/a/26575039
+    private static int[] codePoints = {0x2B1C};
+    public static final String EMPTY_SQUARE = new String(codePoints, 0, codePoints.length);
 
     int size;
     String[][] board;
@@ -13,7 +16,7 @@ public abstract class Map {
         this.size = size;
         this.board = new String[size][size];
         for (String[] row: this.board) {
-            Arrays.fill(row, " ");
+            Arrays.fill(row, EMPTY_SQUARE);
         }
     }
 

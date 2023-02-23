@@ -4,8 +4,11 @@ import java.awt.*;
 
 public class OceanMap extends Map {
     public static final double PERCENTAGE_OF_BOARD = 0.05;
-    private static final String SHIP = "□";
-    private static final String SUNKEN_SHIP = "X";
+    private static int[] codePoints1 = {0x1F7E6};
+    private static int[] codePoints2 = {0x1F7E5};
+
+    public static final String SHIP = new String(codePoints1, 0, 1);
+    public static final String SUNKEN_SHIP = new String(codePoints2, 0, 1);
     protected int numberOfShips;
     protected int maxNumberOfShips;
 

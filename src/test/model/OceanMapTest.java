@@ -16,18 +16,21 @@ public class OceanMapTest {
     String[][] defaultMap1;
     String[][] defaultMap2;
     BattleShip bs;
+    final String EMPTY_SQUARE = Map.EMPTY_SQUARE;
+    final String SHIP = OceanMap.SHIP;
+    final String SUNKEN_SHIP = OceanMap.SUNKEN_SHIP;
 
     @BeforeEach
     void setup() {
         m1 = new OceanMap(10);
         defaultMap1 = new String[10][10];
         for(String[] row: defaultMap1) {
-            Arrays.fill(row, " ");
+            Arrays.fill(row, EMPTY_SQUARE);
         }
         m2 = new OceanMap(13);
         defaultMap2 = new String[13][13];
         for(String[] row: defaultMap2) {
-            Arrays.fill(row, " ");
+            Arrays.fill(row, EMPTY_SQUARE);
         }
         bs = new BattleShip(4);
     }
@@ -47,10 +50,10 @@ public class OceanMapTest {
     void testPlaceShip() {
         bs.rotate();
         m1.placeShip(bs, 2, 4);
-        defaultMap1[4][2] = "□";
-        defaultMap1[5][2] = "□";
-        defaultMap1[6][2] = "□";
-        defaultMap1[7][2] = "□";
+        defaultMap1[4][2] = SHIP;
+        defaultMap1[5][2] = SHIP;
+        defaultMap1[6][2] = SHIP;
+        defaultMap1[7][2] = SHIP;
 
         assertArrayEquals(defaultMap1, m1.getBoard());
         assertEquals(1, m1.getNumberOfShips());

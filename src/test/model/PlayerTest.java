@@ -15,6 +15,9 @@ public class PlayerTest {
     BattleShip bs1;
     String[][] expectedResult1;
     String[][] expectedResult2;
+    final String EMPTY_SQUARE = Map.EMPTY_SQUARE;
+    final String SHIP = OceanMap.SHIP;
+    final String SUNKEN_SHIP = OceanMap.SUNKEN_SHIP;
 
     @BeforeEach
     void setup() {
@@ -23,24 +26,24 @@ public class PlayerTest {
         bs1 = new BattleShip(4);
         expectedResult1 = new String[12][12];
         for(String[] row: expectedResult1) {
-            Arrays.fill(row, " ");
+            Arrays.fill(row, EMPTY_SQUARE);
         }
         expectedResult2 = new String[10][10];
         for(String[] row: expectedResult2) {
-            Arrays.fill(row, " ");
+            Arrays.fill(row, EMPTY_SQUARE);
         }
     }
 
     @Test
     void testConstructor() {
         assertEquals("Alice", p1.getUsername());
-        assertArrayEquals(expectedResult1, p1.getOceanMap());
-        assertArrayEquals(expectedResult1, p1.getRadarMap());
+        assertArrayEquals(expectedResult1, p1.getOceanBoard());
+        assertArrayEquals(expectedResult1, p1.getRadarBoard());
         assertEquals(new ArrayList<BattleShip>(), p1.getShips());
 
         assertEquals("Bob", p2.getUsername());
-        assertArrayEquals(expectedResult2, p2.getOceanMap());
-        assertArrayEquals(expectedResult2, p2.getRadarMap());
+        assertArrayEquals(expectedResult2, p2.getOceanBoard());
+        assertArrayEquals(expectedResult2, p2.getRadarBoard());
         assertEquals(new ArrayList<BattleShip>(), p2.getShips());
     }
 
@@ -49,12 +52,12 @@ public class PlayerTest {
         bs1.rotate();
         p1.placeShip(bs1, 3, 5);
 
-        expectedResult1[5][3] = "□";
-        expectedResult1[6][3] = "□";
-        expectedResult1[7][3] = "□";
-        expectedResult1[8][3] = "□";
+        expectedResult1[5][3] = SHIP;
+        expectedResult1[6][3] = SHIP;
+        expectedResult1[7][3] = SHIP;
+        expectedResult1[8][3] = SHIP;
 
-        assertArrayEquals(expectedResult1, p1.getOceanMap());
+        assertArrayEquals(expectedResult1, p1.getOceanBoard());
         assertEquals(new ArrayList<>(Collections.singletonList(bs1)), p1.getShips());
     }
 

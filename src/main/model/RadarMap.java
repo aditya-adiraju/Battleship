@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RadarMap extends Map {
-    private static final String HIT_SQUARE = "X";
-    private static final String MISSED_SQUARE = "O";
+    private static int[] codePoints1 = {0x1F7E0};
+    private static int[] codePoints2 = {0x1F7E2};
+
+    public static final String HIT_SQUARE = new String(codePoints1, 0, 1);
+    public static final String MISSED_SQUARE = new String(codePoints2, 0, 1);
 
     RadarMap(int size) {
         super(size);

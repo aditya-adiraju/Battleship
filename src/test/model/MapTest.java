@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MapTest {
     Map m1;
     Map m2;
+    final String EMPTY_SQUARE = Map.EMPTY_SQUARE;
 
     @BeforeEach
     void setup() {
@@ -22,11 +23,11 @@ public class MapTest {
     void testSetCoordinate() {
         String[][] er1 = new String[12][12];
         for(String[] row: er1) {
-            Arrays.fill(row, " ");
+            Arrays.fill(row, EMPTY_SQUARE);
         }
         String[][] er2 = new String[10][10];
         for(String[] row: er2) {
-            Arrays.fill(row, " ");
+            Arrays.fill(row, EMPTY_SQUARE);
         }
         er2[0][1] = "O";
         m2.setCoordinate("O", 1, 0);

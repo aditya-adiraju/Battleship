@@ -2,11 +2,13 @@ package model;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BattleShip {
     int size;
     private List<Point> coordinates = new ArrayList<>();
+
 
     public BattleShip(int size) {
         this.size = size;
@@ -78,5 +80,18 @@ public class BattleShip {
     //EFFECTS: checks whether there are any unstruck coordinates in ship
     public boolean isEmpty() {
         return coordinates.size() == 0;
+    }
+
+    public String[][] getShipBoard() {
+        String[][] grid = new String[size][size];
+        for (String[] row: grid) {
+            Arrays.fill(row, Map.EMPTY_SQUARE);
+        }
+        translate(0, 0);
+        for (Point coordinate: getCoordinates()) {
+            grid[coordinate.y][coordinate.x] = OceanMap.SHIP;
+        }
+        grid[0][0] = OceanMap.SUNKEN_SHIP;
+        return grid;
     }
 }

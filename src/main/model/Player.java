@@ -20,12 +20,20 @@ public class Player {
         return ships;
     }
 
-    public String[][] getOceanMap() {
+    public String[][] getOceanBoard() {
         return oceanMap.getBoard();
     }
 
-    public String[][] getRadarMap() {
+    public String[][] getRadarBoard() {
         return radarMap.getBoard();
+    }
+
+    public int getMaximumShips() {
+        return oceanMap.getMaxNumberOfShips();
+    }
+
+    public int getNumberOfShips() {
+        return oceanMap.getNumberOfShips();
     }
 
     // REQUIRES: 0 <= x < size, 0 <= y < size
@@ -67,6 +75,13 @@ public class Player {
     public void placeShip(BattleShip bs, int x, int y) {
         oceanMap.placeShip(bs, x, y);
         ships.add(bs);
+    }
+
+    // REQUIRES:
+    // MODIFIES: this, opp
+    // EFFECTS: launches a missile at a given opponent's board
+    public boolean launchAttack(Player opp, int x, int y) {
+        return radarMap.launchMissile(opp, x, y);
     }
 
     // EFFECTS: returns the player's username
