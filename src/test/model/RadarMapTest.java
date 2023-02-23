@@ -57,10 +57,10 @@ public class RadarMapTest {
 
         defaultMap1[3][3] = "O";
         defaultMap1[4][4] = "X";
-        defaultMap1[5][4] = "X";
-        defaultMap1[6][4] = "X";
-        defaultMap1[7][4] = "X";
-        defaultMap1[8][4] = "O";
+        defaultMap1[4][5] = "X";
+        defaultMap1[4][6] = "X";
+        defaultMap1[4][7] = "X";
+        defaultMap1[4][8] = "O";
 
         assertArrayEquals(defaultMap1, m1.getBoard());
     }

@@ -15,7 +15,15 @@ public class RadarMap extends Map {
     // REQUIRES: 0 <= x < size, 0 <= y < size
     // MODIFIES: this
     // EFFECTS: launches missile at given coordinates to opp board, true if it hits and false if miss
-    boolean launchMissile(Player opponent, int x, int y) {
-        return false;
+    boolean launchMissile(Player opp, int x, int y) {
+        if (opp.hitTarget(x, y)) {
+            this.setCoordinate(HIT_SQUARE, x, y);
+            return true;
+        } else {
+            if (board[y][x].equals(EMPTY_SQUARE)) {
+                this.setCoordinate(MISSED_SQUARE, x, y);
+            }
+            return false;
+        }
     }
 }

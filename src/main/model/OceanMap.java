@@ -29,7 +29,7 @@ public class OceanMap extends Map {
     void placeShip(BattleShip ship, int x, int y) {
         ship.translate(x, y);
         for (Point coordinate: ship.getCoordinates()) {
-            board[coordinate.y][coordinate.x] = SHIP;
+            setCoordinate(SHIP, coordinate.x, coordinate.y);
         }
         numberOfShips++;
     }
@@ -38,7 +38,7 @@ public class OceanMap extends Map {
     // EFFECTS: returns true if a ship is present at a given coordinate
     boolean isHit(int x, int y) {
         if (board[y][x].equals(SHIP)) {
-            board[y][x] = SUNKEN_SHIP;
+            setCoordinate(SUNKEN_SHIP, x, y);
             return true;
         }
         return false;
