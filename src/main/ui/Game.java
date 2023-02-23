@@ -3,8 +3,6 @@ package ui;
 import model.BattleShip;
 import model.Player;
 
-import javax.lang.model.type.ArrayType;
-import java.util.List;
 import java.util.Scanner;
 
 public class Game {
@@ -26,13 +24,23 @@ public class Game {
     public void intitBoard(Player p) {
         System.out.println("You will now be placing ships on your map");
         for (int i = 0; i < p.getMaximumShips(); i++) {
+            showOceanMap(p);
             BattleShip s = new BattleShip(shipSizes[i % shipSizes.length]);
-            System.out.println(p.getUsername() + "\'s Ocean Map");
-            displayBoard(p.getOceanBoard());
             displayBoard(s.getShipBoard());
-            System.out.println();
-            getAndPlaceShip(p, s);
+            while (!getAndPlaceShip(p, s)) {
+                System.out.println("CANNOT PLACE SHIP THERE");
+            }
         }
+    }
+
+    private void showOceanMap(Player p) {
+        System.out.println(p.getUsername() + "'s Ocean Map");
+        displayBoard(p.getOceanBoard());
+    }
+
+    private void showRadarMap(Player p) {
+        System.out.println(p.getUsername() + "'s Radar Map");
+        displayBoard(p.getRadarBoard());
     }
 
 
@@ -40,33 +48,27 @@ public class Game {
     private int[] getCoordinate() {
         int x;
         int y;
-        System.out.print("Enter the row you want to place the marked point of your ship on your board[A, B, C, etc]: ");
-        y = in.next().toUpperCase().charAt(0);
+        String coordinate;
+        System.out.println("Enter the coordinate you want to place your marker on the board");
+        System.out.print("[ex: A1, B2, C3, etc] There are no spaces in between: ");
+        coordinate = in.next().toUpperCase();
+        y = coordinate.charAt(0);
         y -= 65;
-        System.out.print("Enter the column you want to place the marked point on your board [1, 2, 3, etc.]: ");
-        x = in.nextInt();
+        x = Character.getNumericValue(coordinate.charAt(1));
         return new int[] {x, y};
     }
 
     // REQUIRES:
     // MODIFIES: this
-    // EFFECTS: adds ships to given player's board
-    private void getAndPlaceShip(Player p, BattleShip s) {
+    // EFFECTS: adds ships to given player's board, or fails
+    private boolean getAndPlaceShip(Player p, BattleShip s) {
         int x;
         int y;
         int[] coordinates;
-        getRotation(s);
-        coordinates = getCoordinate();
+        coordinates = getValidCoordinates(s);
         x = coordinates[0];
         y = coordinates[1];
-        while (x < 0 || y < 0 || x >= size || x >= size) {
-            System.out.println("Enter a valid coordinate!");
-            getRotation(s);
-            coordinates = getCoordinate();
-            x = coordinates[0];
-            y = coordinates[1];
-        }
-        p.placeShip(s, x, y);
+        return p.placeShip(s, x, y);
     }
 
     // REQUIRES:
@@ -101,11 +103,78 @@ public class Game {
         System.out.println();
     }
     
-    public void play() {
+    public void playGame() {
+        boolean attackSuccesful = true;
         intitBoard(player1);
         intitBoard(player2);
+        while (!player1.isOver() || !player2.isOver()) {
+
+            while (attackSuccesful) {
+                attackSuccesful = attack(player1, player2);
+            }
+            attackSuccesful = true;
+            while (attackSuccesful) {
+                attackSuccesful = attack(player2, player1);
+            }
+        }
+
+        System.out.print("YOU WIN! ");
+        if (player1.isOver()) {
+            System.out.println(player2.getUsername());
+        } else {
+            System.out.println(player1.getUsername());
+        }
+        System.exit(0);
     }
 
+    private boolean attack(Player p, Player opp) {
+        int x;
+        int y;
+        int[] coordinates;
+        if (p.isOver() || opp.isOver()) {
+            return false;
+        }
+        showRadarMap(p);
+        showOceanMap(p);
+        System.out.println("Choose a point to attack \n");
+        coordinates = getValidCoordinates();
+        x = coordinates[0];
+        y = coordinates[1];
+        if (p.launchAttack(opp, x, y)) {
+            System.out.println("YOU GOT A HIT!");
+            return true;
+        } else {
+            showRadarMap(p);
+            showRadarMap(p);
+            System.out.println("YOU MISSED!");
+            return false;
+        }
+    }
 
+    //@Overload
+    private int[] getValidCoordinates() {
+        return getValidCoordinates(null);
+    }
 
+    private int[] getValidCoordinates(BattleShip s) {
+        int x;
+        int y;
+        int[] coordinates;
+        if (s != null) {
+            getRotation(s);
+        }
+        coordinates = getCoordinate();
+        x = coordinates[0];
+        y = coordinates[1];
+        while (x < 0 || y < 0 || x >= size || y >= size) {
+            if (s != null) {
+                getRotation(s);
+            }
+            System.out.println("Enter a valid coordinate!");
+            coordinates = getCoordinate();
+            x = coordinates[0];
+            y = coordinates[1];
+        }
+        return coordinates;
+    }
 }
