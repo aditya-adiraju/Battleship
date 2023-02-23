@@ -106,22 +106,47 @@ public class Game {
         System.out.println();
     }
 
+    // EFFECTS: anti-cheating mechanism to pass game between players
+    private void passGame(Player p) {
+        showRadarMap(p);
+        showOceanMap(p);
+        System.out.println("YOUR TURN HAS ENDED");
+        System.out.println("PLEASE PRESS ENTER");
+        in.nextLine();
+        in.nextLine();
+        clearConsole();
+        System.out.println("PASS THE DEVICE TO YOUR OPPONENT, AND PRESS ENTER");
+        in.nextLine();
+        clearConsole();
+    }
+
+    // EFFECTS: hides opponents game from player by creating lines of blank text
+    private void clearConsole() {
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
+    }
+
     // MODIFIES: this
     // EFFECTS: initialize game and go through each player's turn until win.
     public void playGame() {
-        boolean attackSuccessful = true;
+        boolean attackSuccessful;
         initializeBoards();
-        while (!player1.isOver() || !player2.isOver()) {
+        while (!player1.isOver() && !player2.isOver()) {
+            attackSuccessful = true;
             while (attackSuccessful) {
                 attackSuccessful = attack(player1, player2);
             }
+            passGame(player1);
             attackSuccessful = true;
             while (attackSuccessful) {
+                System.out.println("RUNS ");
                 attackSuccessful = attack(player2, player1);
             }
+            passGame(player2);
         }
 
-        System.out.print("YOU WIN! ");
+        System.out.print("YOU WIN!!!!!!!!! ");
         if (player1.isOver()) {
             System.out.println(player2.getUsername());
         } else {
@@ -132,7 +157,9 @@ public class Game {
 
     private void initializeBoards() {
         intitBoard(player1);
+        passGame(player1);
         intitBoard(player2);
+        passGame(player2);
     }
 
     // MODIFIES: this
@@ -142,6 +169,7 @@ public class Game {
         int y;
         int[] coordinates;
         if (p.isOver() || opp.isOver()) {
+            System.out.println(p.getUsername());
             return false;
         }
         showRadarMap(p);
@@ -154,8 +182,6 @@ public class Game {
             System.out.println("YOU GOT A HIT!");
             return true;
         } else {
-            showRadarMap(p);
-            showRadarMap(p);
             System.out.println("YOU MISSED!");
             return false;
         }
@@ -179,10 +205,10 @@ public class Game {
         x = coordinates[0];
         y = coordinates[1];
         while (x < 0 || y < 0 || x >= size || y >= size) {
+            System.out.println("Enter a valid coordinate!");
             if (s != null) {
                 getRotation(s);
             }
-            System.out.println("Enter a valid coordinate!");
             coordinates = getCoordinate();
             x = coordinates[0];
             y = coordinates[1];
