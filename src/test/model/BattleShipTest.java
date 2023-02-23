@@ -21,11 +21,11 @@ class BattleShipTest {
 
     @BeforeEach
     void setup() {
-        BattleShip bs1 = new BattleShip(1);
-        BattleShip bs2 = new BattleShip(2);
-        BattleShip bs3 = new BattleShip(3);
-        BattleShip bs4 = new BattleShip(4);
-        BattleShip bs5 = new BattleShip(5);
+        bs1 = new BattleShip(1);
+        bs2 = new BattleShip(2);
+        bs3 = new BattleShip(3);
+        bs4 = new BattleShip(4);
+        bs5 = new BattleShip(5);
     }
 
     @Test
@@ -73,12 +73,12 @@ class BattleShipTest {
     @Test
     void testRotateBothNonZeroCoordinates() {
         List<Point> expectedResult = new ArrayList<>();
-        expectedResult.add(new Point(6, 1));
         expectedResult.add(new Point(5, 2));
-        expectedResult.add(new Point(4, 3));
-        expectedResult.add(new Point(3, 4));
+        expectedResult.add(new Point(5, 3));
+        expectedResult.add(new Point(5, 4));
+        expectedResult.add(new Point(5, 5));
 
-        bs4.translate(2, 1);
+        bs4.translate(3, 4);
         bs4.rotate();
         assertEquals(expectedResult, bs4.getCoordinates());
     }
@@ -96,9 +96,10 @@ class BattleShipTest {
     @Test
     void testRemoveCoordinate() {
         List<Point> expectedResult = new ArrayList<>();
-        expectedResult.add(new Point(0, 1));
+        expectedResult.add(new Point(1, 0));
 
         bs2.removeCoordinate(0, 0);
+
         assertEquals(expectedResult, bs2.getCoordinates());
     }
 
@@ -106,6 +107,6 @@ class BattleShipTest {
     void testIsEmpty() {
       bs2.removeCoordinate(0, 0);
       bs2.removeCoordinate(1, 0);
-      assertTrue(bs1.isEmpty());
+      assertTrue(bs2.isEmpty());
     }
 }

@@ -31,39 +31,48 @@ public class BattleShip {
         int newY;
         int temp;
         Point midpoint = coordinates.get(size / 2);
+        int midX = midpoint.x;
+        int midY = midpoint.y;
         for (Point coordinate: coordinates) {
-            newX = (int) coordinate.getX();
-            newY = (int) coordinate.getY();
+            newX = coordinate.x;
+            newY = coordinate.y;
 
-            newX -= midpoint.x;
-            newY -= midpoint.y;
+            newX -= midX;
+            newY -= midY;
 
             temp = newX;
             newX = -newY;
             newY =  temp;
 
-            newX += midpoint.x;
-            newY += midpoint.y;
+            newX += midX;
+            newY += midY;
 
             coordinate.setLocation(newX, newY);
         }
     }
-
+    
+    // REQUIRES: size of coordinates > 0
     // MODIFIES: this
     // EFFECTS: translates coordinates to be w.r.t. given coordinate
     public void translate(int x, int y) {
+        Point baseCoordinate = coordinates.get(0);
+        int translationFactorX = x - baseCoordinate.x;
+        int translationFactorY = y - baseCoordinate.y;
 
+        for (Point coordinate: coordinates) {
+            coordinate.translate(translationFactorX, translationFactorY);
+        }
     }
 
     // REQUIRES: Point(x, y) must be in coordinates
     // MODIFIES: this
     // EFFECTS: remove given coordinate
     public void removeCoordinate(int x, int y) {
-
+        coordinates.remove(new Point(x, y));
     }
 
     //EFFECTS: checks whether there are any unstruck coordinates in ship
     public boolean isEmpty() {
-        return false;
+        return coordinates.size() == 0;
     }
 }

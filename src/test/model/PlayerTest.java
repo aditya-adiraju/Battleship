@@ -18,14 +18,14 @@ public class PlayerTest {
 
     @BeforeEach
     void setup() {
-        Player p1 = new Player("Alice", 12);
-        Player p2 = new Player("Bob", 10);
-        BattleShip bs1 = new BattleShip(4);
-        String[][] expectedResult1 = new String[12][12];
+        p1 = new Player("Alice", 12);
+        p2 = new Player("Bob", 10);
+        bs1 = new BattleShip(4);
+        expectedResult1 = new String[12][12];
         for(String[] row: expectedResult1) {
             Arrays.fill(row, " ");
         }
-        String[][] expectedResult2 = new String[10][10];
+        expectedResult2 = new String[10][10];
         for(String[] row: expectedResult2) {
             Arrays.fill(row, " ");
         }
