@@ -49,7 +49,7 @@ public class OceanMapTest {
     @Test
     void testPlaceShip() {
         bs.rotate();
-        m1.placeShip(bs, 2, 4);
+        assertTrue(m1.placeShip(bs, 2, 4));
         defaultMap1[4][2] = SHIP;
         defaultMap1[5][2] = SHIP;
         defaultMap1[6][2] = SHIP;
@@ -59,6 +59,13 @@ public class OceanMapTest {
         assertEquals(1, m1.getNumberOfShips());
     }
 
+    @Test
+    void testPlaceShipOutOfBounds() {
+        assertFalse(m2.placeShip(bs, 12, 12));
+        assertFalse(m2.placeShip(bs, 11, 0));
+        assertFalse(m2.placeShip(bs, 10, 0));
+        assertArrayEquals(defaultMap2, m2.getBoard());
+    }
     @Test
     void testIsHit() {
 

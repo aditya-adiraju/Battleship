@@ -5,11 +5,13 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static model.Map.EMPTY_SQUARE;
+import static model.OceanMap.SHIP;
+import static model.OceanMap.SUNKEN_SHIP;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BattleShipTest {
 
@@ -115,5 +117,24 @@ class BattleShipTest {
         assertFalse(bs4.contains(1,1));
         assertTrue(bs4.contains(1,0));
         assertFalse(bs4.contains(0,1));
+    }
+
+    @Test
+    void testGetShipBoard() {
+        String[][] grid1 = new String[1][1];
+        for(String[] row: grid1) {
+            Arrays.fill(row, SUNKEN_SHIP);
+        }
+        String[][] grid3 = new String[3][3];
+        for(String[] row: grid3) {
+            Arrays.fill(row, EMPTY_SQUARE);
+        }
+        grid3[0][0] = SUNKEN_SHIP;
+        grid3[1][0] = SHIP;
+        grid3[2][0] = SHIP;
+
+        bs3.rotate();
+        assertArrayEquals(grid1, bs1.getShipBoard());
+        assertArrayEquals(grid3, bs3.getShipBoard());
     }
 }

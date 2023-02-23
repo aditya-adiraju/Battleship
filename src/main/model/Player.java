@@ -16,24 +16,23 @@ public class Player {
         this.ships = new ArrayList<>();
     }
 
-    private List<BattleShip> getShips() {
+    public List<BattleShip> getShips() {
         return ships;
     }
 
+    // EFFECTS: returns the ocean map as a formatted grid
     public String[][] getOceanBoard() {
         return oceanMap.getBoard();
     }
 
+    // EFFECTS: returns the radar map as a formatted grid
     public String[][] getRadarBoard() {
         return radarMap.getBoard();
     }
 
+    // EFFECTS: returns the maximum number of ships on the board.
     public int getMaximumShips() {
         return oceanMap.getMaxNumberOfShips();
-    }
-
-    public int getNumberOfShips() {
-        return oceanMap.getNumberOfShips();
     }
 
     // REQUIRES: 0 <= x < size, 0 <= y < size
@@ -92,6 +91,7 @@ public class Player {
         return username;
     }
 
+    // EFFECTS: checks whether any ships are remaining
     public boolean isOver() {
         return ships.isEmpty();
     }

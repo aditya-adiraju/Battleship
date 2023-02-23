@@ -82,6 +82,8 @@ public class BattleShip {
         return coordinates.size() == 0;
     }
 
+
+    // EFFECTS: returns a grid representing the battleship shape
     public String[][] getShipBoard() {
         String[][] grid = new String[size][size];
         for (String[] row: grid) {

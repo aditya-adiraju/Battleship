@@ -33,11 +33,14 @@ public class Game {
         }
     }
 
+
+    // EFFECTS: renders a formatted view of player's ocean map on the console
     private void showOceanMap(Player p) {
         System.out.println(p.getUsername() + "'s Ocean Map");
         displayBoard(p.getOceanBoard());
     }
 
+    // EFFECTS: renders a formatted view of player's radar map on the console
     private void showRadarMap(Player p) {
         System.out.println(p.getUsername() + "'s Radar Map");
         displayBoard(p.getRadarBoard());
@@ -102,19 +105,19 @@ public class Game {
         }
         System.out.println();
     }
-    
-    public void playGame() {
-        boolean attackSuccesful = true;
-        intitBoard(player1);
-        intitBoard(player2);
-        while (!player1.isOver() || !player2.isOver()) {
 
-            while (attackSuccesful) {
-                attackSuccesful = attack(player1, player2);
+    // MODIFIES: this
+    // EFFECTS: initialize game and go through each player's turn until win.
+    public void playGame() {
+        boolean attackSuccessful = true;
+        initializeBoards();
+        while (!player1.isOver() || !player2.isOver()) {
+            while (attackSuccessful) {
+                attackSuccessful = attack(player1, player2);
             }
-            attackSuccesful = true;
-            while (attackSuccesful) {
-                attackSuccesful = attack(player2, player1);
+            attackSuccessful = true;
+            while (attackSuccessful) {
+                attackSuccessful = attack(player2, player1);
             }
         }
 
@@ -127,6 +130,13 @@ public class Game {
         System.exit(0);
     }
 
+    private void initializeBoards() {
+        intitBoard(player1);
+        intitBoard(player2);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: player p attacks opponent, returns true if successful
     private boolean attack(Player p, Player opp) {
         int x;
         int y;
@@ -156,6 +166,8 @@ public class Game {
         return getValidCoordinates(null);
     }
 
+    // MODIFIES: this
+    // EFFECTS: get coordinates that are valid for the game size
     private int[] getValidCoordinates(BattleShip s) {
         int x;
         int y;

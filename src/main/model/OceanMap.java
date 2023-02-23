@@ -42,6 +42,7 @@ public class OceanMap extends Map {
         }
     }
 
+    // EFFECTS: returns true if a ship can be placed on map at present location
     private boolean validPosition(BattleShip ship) {
         try {
             for (Point coordinate : ship.getCoordinates()) {
