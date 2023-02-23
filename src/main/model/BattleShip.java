@@ -23,6 +23,11 @@ public class BattleShip {
         return coordinates;
     }
 
+    // EFFECTS: checks whether given coordinate exists on battleship
+    public boolean contains(int x, int y) {
+        return coordinates.contains(new Point(x, y));
+    }
+
     // MODIFIES: this
     // EFFECTS: rotates all coordinates on ship 90 counter-clockwise
     public void rotate() {

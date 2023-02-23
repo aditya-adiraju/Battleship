@@ -109,4 +109,11 @@ class BattleShipTest {
       bs2.removeCoordinate(1, 0);
       assertTrue(bs2.isEmpty());
     }
+
+    @Test
+    void testContains() {
+        assertFalse(bs4.contains(1,1));
+        assertTrue(bs4.contains(1,0));
+        assertFalse(bs4.contains(0,1));
+    }
 }

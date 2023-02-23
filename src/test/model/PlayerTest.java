@@ -34,13 +34,13 @@ public class PlayerTest {
     @Test
     void testConstructor() {
         assertEquals("Alice", p1.getUsername());
-        assertEquals(expectedResult1, p1.getOceanMap());
-        assertEquals(expectedResult1, p1.getRadarMap());
+        assertArrayEquals(expectedResult1, p1.getOceanMap());
+        assertArrayEquals(expectedResult1, p1.getRadarMap());
         assertEquals(new ArrayList<BattleShip>(), p1.getShips());
 
         assertEquals("Bob", p2.getUsername());
-        assertEquals(expectedResult2, p2.getOceanMap());
-        assertEquals(expectedResult2, p2.getRadarMap());
+        assertArrayEquals(expectedResult2, p2.getOceanMap());
+        assertArrayEquals(expectedResult2, p2.getRadarMap());
         assertEquals(new ArrayList<BattleShip>(), p2.getShips());
     }
 
@@ -54,14 +54,14 @@ public class PlayerTest {
         expectedResult1[7][3] = "□";
         expectedResult1[8][3] = "□";
 
-        assertEquals(expectedResult1, p1.getOceanMap());
+        assertArrayEquals(expectedResult1, p1.getOceanMap());
         assertEquals(new ArrayList<>(Collections.singletonList(bs1)), p1.getShips());
     }
 
     @Test
     void testHitTarget() {
+        bs1.rotate();
         p1.placeShip(bs1 ,1, 2);
-
         assertFalse(p1.hitTarget(0, 0));
         assertFalse(p1.hitTarget(11, 11));
         assertTrue(p1.hitTarget(1, 2));
@@ -71,4 +71,5 @@ public class PlayerTest {
 
         assertEquals(new ArrayList<BattleShip>(), p1.getShips());
     }
+
 }

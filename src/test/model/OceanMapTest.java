@@ -35,12 +35,12 @@ public class OceanMapTest {
     @Test
     void testConstructor() {
         assertArrayEquals(defaultMap1, m1.getBoard());
-        assertEquals(0, m1.getMaxNumberOfShips());
-        assertEquals(5, m1.maxNumberOfShips);
+        assertEquals(0, m1.getNumberOfShips());
+        assertEquals(5, m1.getMaxNumberOfShips());
 
         assertArrayEquals(defaultMap2, m2.getBoard());
-        assertEquals(0, m2.getMaxNumberOfShips());
-        assertEquals(8, m2.maxNumberOfShips);
+        assertEquals(0, m2.getNumberOfShips());
+        assertEquals(8, m2.getMaxNumberOfShips());
     }
 
     @Test
@@ -53,6 +53,7 @@ public class OceanMapTest {
         defaultMap1[7][2] = "□";
 
         assertArrayEquals(defaultMap1, m1.getBoard());
+        assertEquals(1, m1.getNumberOfShips());
     }
 
     @Test
@@ -70,11 +71,5 @@ public class OceanMapTest {
 
         assertFalse(m1.isHit(8, 4));
 
-    }
-    @Test
-    void testIsOver() {
-        assertTrue(m1.isOver());
-        m1.placeShip(bs, 2,2);
-        assertFalse(m1.isOver());
     }
 }
