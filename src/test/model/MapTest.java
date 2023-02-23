@@ -3,14 +3,10 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.awt.Point;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MapTest {
     Map m1;
@@ -32,13 +28,14 @@ public class MapTest {
         for(String[] row: er2) {
             Arrays.fill(row, " ");
         }
+        er2[0][1] = "O";
+        m2.setCoordinate("O", 1, 0);
+        assertArrayEquals(er2, m2.getBoard());
 
-        er1[4][5] = "x";
+        er1[5][4] = "x";
         m1.setCoordinate("x", 4, 5);
-        assertEquals(er1, m1.getBoard());
+        assertArrayEquals(er1, m1.getBoard());
 
-        er2[1][0] = "O";
-        m1.setCoordinate("O", 1, 0);
-        assertEquals(er2, m1.getBoard());
+
     }
 }

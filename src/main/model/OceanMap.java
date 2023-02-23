@@ -32,7 +32,7 @@ public class OceanMap extends Map {
     // REQUIRES: 0 <= x < size, 0 <= y < size
     // EFFECTS: returns true if a ship is present at a given coordinate
     boolean isHit(int x, int y) {
-        return !this.board[x][y].equals(EMPTY_SQUARE);
+        return !this.board[y][x].equals(EMPTY_SQUARE);
     }
 
     // EFFECTS: checks whether there are any ships left on the board

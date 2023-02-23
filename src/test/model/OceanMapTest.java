@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class OceanMapTest {
     OceanMap m1;
@@ -36,11 +34,11 @@ public class OceanMapTest {
 
     @Test
     void testConstructor() {
-        assertEquals(defaultMap1, m1.getBoard());
+        assertArrayEquals(defaultMap1, m1.getBoard());
         assertEquals(0, m1.getMaxNumberOfShips());
         assertEquals(5, m1.maxNumberOfShips);
 
-        assertEquals(defaultMap2, m2.getBoard());
+        assertArrayEquals(defaultMap2, m2.getBoard());
         assertEquals(0, m2.getMaxNumberOfShips());
         assertEquals(8, m2.maxNumberOfShips);
     }
@@ -49,12 +47,12 @@ public class OceanMapTest {
     void testPlaceShip() {
         bs.rotate();
         m1.placeShip(bs, 2, 4);
-        defaultMap1[2][4] = "□";
-        defaultMap1[2][5] = "□";
-        defaultMap1[2][6] = "□";
-        defaultMap1[2][7] = "□";
+        defaultMap1[4][2] = "□";
+        defaultMap1[5][2] = "□";
+        defaultMap1[6][2] = "□";
+        defaultMap1[7][2] = "□";
 
-        assertEquals(defaultMap1, m1.getBoard());
+        assertArrayEquals(defaultMap1, m1.getBoard());
     }
 
     @Test

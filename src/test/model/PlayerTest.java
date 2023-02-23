@@ -49,10 +49,10 @@ public class PlayerTest {
         bs1.rotate();
         p1.placeShip(bs1, 3, 5);
 
-        expectedResult1[3][5] = "□";
-        expectedResult1[3][6] = "□";
-        expectedResult1[3][7] = "□";
-        expectedResult1[3][8] = "□";
+        expectedResult1[5][3] = "□";
+        expectedResult1[6][3] = "□";
+        expectedResult1[7][3] = "□";
+        expectedResult1[8][3] = "□";
 
         assertEquals(expectedResult1, p1.getOceanMap());
         assertEquals(new ArrayList<>(Collections.singletonList(bs1)), p1.getShips());

@@ -25,7 +25,7 @@ public abstract class Map {
     // MODIFIES: this
     // EFFECTS: changes value of square at the given coordinate to given string
     void setCoordinate(String s, int x, int y) {
-        this.board[x][y] = s;
+        this.board[y][x] = s;
     }
 
 }

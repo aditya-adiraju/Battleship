@@ -3,7 +3,6 @@ package model;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.Graphics;
 
 public class BattleShip {
     int size;
@@ -50,7 +49,7 @@ public class BattleShip {
             coordinate.setLocation(newX, newY);
         }
     }
-    
+
     // REQUIRES: size of coordinates > 0
     // MODIFIES: this
     // EFFECTS: translates coordinates to be w.r.t. given coordinate

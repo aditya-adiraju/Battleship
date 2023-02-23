@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RadarMapTest {
     Player opp;
@@ -38,8 +36,8 @@ public class RadarMapTest {
 
     @Test
     void testConstructor() {
-        assertEquals(defaultMap1, m1.getBoard());
-        assertEquals(defaultMap2, m2.getBoard());
+        assertArrayEquals(defaultMap1, m1.getBoard());
+        assertArrayEquals(defaultMap2, m2.getBoard());
     }
 
 
@@ -64,6 +62,6 @@ public class RadarMapTest {
         defaultMap1[7][4] = "X";
         defaultMap1[8][4] = "O";
 
-        assertEquals(defaultMap1, m1.getBoard());
+        assertArrayEquals(defaultMap1, m1.getBoard());
     }
 }
