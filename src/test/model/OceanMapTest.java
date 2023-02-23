@@ -82,4 +82,10 @@ public class OceanMapTest {
         assertFalse(m1.isHit(8, 4));
 
     }
+
+    @Test
+    void testPlaceShipOnOtherShip() {
+        m1.placeShip(bs,1, 0);
+        assertFalse(m1.placeShip(bs,4, 0));
+    }
 }

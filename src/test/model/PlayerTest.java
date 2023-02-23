@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PlayerTest {
     Player p1;
     Player p2;
+    Player p3;
     BattleShip bs1;
     String[][] expectedResult1;
     String[][] expectedResult2;
@@ -23,6 +24,7 @@ public class PlayerTest {
     void setup() {
         p1 = new Player("Alice", 12);
         p2 = new Player("Bob", 10);
+        p3 = new Player("Charles", 12);
         bs1 = new BattleShip(4);
         expectedResult1 = new String[12][12];
         for(String[] row: expectedResult1) {
@@ -59,6 +61,8 @@ public class PlayerTest {
 
         assertArrayEquals(expectedResult1, p1.getOceanBoard());
         assertEquals(new ArrayList<>(Collections.singletonList(bs1)), p1.getShips());
+
+        assertFalse(p1.placeShip(bs1, 3, 6));
     }
 
     @Test
@@ -73,6 +77,38 @@ public class PlayerTest {
         assertTrue(p1.hitTarget(1, 5));
 
         assertEquals(new ArrayList<BattleShip>(), p1.getShips());
+    }
+
+    @Test
+    void testLaunchAttack() {
+        assertTrue(p3.placeShip(bs1, 0, 2));
+        assertFalse(p1.launchAttack(p3, 0, 0));
+        assertTrue(p1.launchAttack(p3, 0, 2));
+        assertFalse(p1.launchAttack(p3, 0, 2));
+        assertTrue(p1.launchAttack(p3, 1, 2));
+        assertTrue(p1.launchAttack(p3, 2, 2));
+        assertTrue(p1.launchAttack(p3, 3, 2));
+        assertFalse(p1.launchAttack(p3, 4, 2));
+    }
+
+    @Test
+    void testIsOver() {
+        assertTrue(p1.isOver());
+        assertTrue(p1.placeShip(bs1, 3, 4));
+        assertFalse(p1.isOver());
+        assertTrue(p1.hitTarget(3, 4));
+        assertTrue(p1.hitTarget(4, 4));
+        assertTrue(p1.hitTarget(5, 4));
+        assertTrue(p1.hitTarget(6, 4));
+        assertTrue(p1.isOver());
+
+    }
+
+    @Test
+    void testGetMaximumShips() {
+        assertEquals(7, p1.getMaximumShips());
+        assertEquals(5, p2.getMaximumShips());
+        assertEquals(7, p3.getMaximumShips());
     }
 
 }
