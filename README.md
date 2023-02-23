@@ -24,5 +24,3 @@ As a user, I want to be able to:
 - choose coordinates to strike on my opponent's board for my missiles
 - save a tally of my wins against others
 - pause and resume the game at a later point in time (Battleship is a long game that can take over 30 minutes)
-
-An example of text with **bold** and *italic* fonts.  
