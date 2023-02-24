@@ -163,7 +163,6 @@ public class Game {
             if (player1.isLose() || player2.isLose()) {
                 break;
             }
-            passGame(player1);
             playTurn(player2, player1);
         }
         System.out.print("YOU WIN!!!!!!!!! ");
@@ -182,7 +181,7 @@ public class Game {
         while (attackSuccessful) {
             attackSuccessful = attack(player, opp);
         }
-        passGame(player2);
+        passGame(player);
     }
 
     // EFFECTS: initialize the ships on both player's boards
