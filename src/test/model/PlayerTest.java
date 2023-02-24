@@ -14,6 +14,7 @@ public class PlayerTest {
     Player p2;
     Player p3;
     BattleShip bs1;
+    BattleShip bs2;
     String[][] expectedResult1;
     String[][] expectedResult2;
     final String EMPTY_SQUARE = Map.EMPTY_SQUARE;
@@ -26,6 +27,7 @@ public class PlayerTest {
         p2 = new Player("Bob", 10);
         p3 = new Player("Charles", 12);
         bs1 = new BattleShip(4);
+        bs2 = new BattleShip(1);
         expectedResult1 = new String[12][12];
         for(String[] row: expectedResult1) {
             Arrays.fill(row, EMPTY_SQUARE);
@@ -69,14 +71,16 @@ public class PlayerTest {
     void testHitTarget() {
         bs1.rotate();
         p1.placeShip(bs1 ,1, 2);
-        assertFalse(p1.hitTarget(0, 0));
+        p1.placeShip(bs2, 0, 0);
         assertFalse(p1.hitTarget(11, 11));
         assertTrue(p1.hitTarget(1, 2));
         assertTrue(p1.hitTarget(1, 3));
+        assertTrue(p1.hitTarget(0, 0));
+        assertEquals(new ArrayList<BattleShip>(Collections.singletonList(bs1)), p1.getShips());
         assertTrue(p1.hitTarget(1, 4));
         assertTrue(p1.hitTarget(1, 5));
-
         assertEquals(new ArrayList<BattleShip>(), p1.getShips());
+
     }
 
     @Test
