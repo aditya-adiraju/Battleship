@@ -9,9 +9,11 @@ public class OceanMap extends Map {
     public static final double PERCENTAGE_OF_BOARD = 0.05;
     private static final int[] codePoints1 = {0x1F7E6};
     private static final int[] codePoints2 = {0x1F7E5};
+    private static final int[] codePoints3 = {0x1F7E8};
 
     public static final String SHIP = new String(codePoints1, 0, 1);
     public static final String SUNKEN_SHIP = new String(codePoints2, 0, 1);
+    public static final String MISSED_ATTACK = new String(codePoints3, 0, 1);
     protected int numberOfShips;
     protected int maxNumberOfShips;
 
@@ -65,6 +67,9 @@ public class OceanMap extends Map {
         if (board[y][x].equals(SHIP)) {
             setCoordinate(SUNKEN_SHIP, x, y);
             return true;
+        }
+        if (!board[y][x].equals(SUNKEN_SHIP)) {
+            setCoordinate(MISSED_ATTACK, x, y);
         }
         return false;
     }
