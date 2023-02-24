@@ -190,7 +190,6 @@ public class Game {
         }
     }
 
-    //@Overload
     private int[] getValidCoordinates() {
         return getValidCoordinates(null);
     }
