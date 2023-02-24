@@ -17,19 +17,22 @@ public class RadarMapTest {
     String[][] defaultMap1;
     String[][] defaultMap2;
     BattleShip bs;
+    final String EMPTY_SQUARE = Map.EMPTY_SQUARE;
+    final String HIT_SQUARE = RadarMap.HIT_SQUARE;
+    final String MISSED_SQUARE = RadarMap.MISSED_SQUARE;
 
     @BeforeEach
     void setup() {
         m1 = new RadarMap(10);
         defaultMap1 = new String[10][10];
         for(String[] row: defaultMap1) {
-            Arrays.fill(row, " ");
+            Arrays.fill(row, EMPTY_SQUARE);
         }
         opp = new Player("Charlie",10);
         m2 = new RadarMap(15);
         defaultMap2 = new String[15][15];
         for(String[] row: defaultMap2) {
-            Arrays.fill(row, " ");
+            Arrays.fill(row, EMPTY_SQUARE);
         }
         bs = new BattleShip(4);
     }
@@ -55,12 +58,12 @@ public class RadarMapTest {
         assertTrue(m1.launchMissile(opp, 7, 4));
         assertFalse(m1.launchMissile(opp, 8, 4));
 
-        defaultMap1[3][3] = "O";
-        defaultMap1[4][4] = "X";
-        defaultMap1[5][4] = "X";
-        defaultMap1[6][4] = "X";
-        defaultMap1[7][4] = "X";
-        defaultMap1[8][4] = "O";
+        defaultMap1[3][3] = MISSED_SQUARE;
+        defaultMap1[4][4] = HIT_SQUARE;
+        defaultMap1[4][5] = HIT_SQUARE;
+        defaultMap1[4][6] = HIT_SQUARE;
+        defaultMap1[4][7] = HIT_SQUARE;
+        defaultMap1[4][8] = MISSED_SQUARE;
 
         assertArrayEquals(defaultMap1, m1.getBoard());
     }
