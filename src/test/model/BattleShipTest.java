@@ -96,6 +96,17 @@ class BattleShipTest {
     }
 
     @Test
+    void testRotateMultipleAndTranslate() {
+        bs2.rotate();
+        bs2.rotate();
+        bs2.translate(5, 2);
+        List<Point> result = bs2.getCoordinates();
+        assertTrue(result.contains(new Point(5, 2)));
+        assertTrue(result.contains(new Point(6, 2)));
+        assertEquals(bs2.getSize(), result.size());
+    }
+
+    @Test
     void testRemoveCoordinate() {
         List<Point> expectedResult = new ArrayList<>();
         expectedResult.add(new Point(1, 0));
