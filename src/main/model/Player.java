@@ -3,6 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+// CLASS-LEVEL COMMENT:
+// This represents a player with an OceanMap and RadarMap
+// they can launchAttacks to opponents or place a ship.
 public class Player {
     private final OceanMap oceanMap;
     private final RadarMap radarMap;

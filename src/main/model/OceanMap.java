@@ -2,6 +2,9 @@ package model;
 
 import java.awt.*;
 
+// CLASS-LEVEL COMMENT:
+// This represents the player's ocean map which holds their ships
+// You can place ships and check whether a given coordinate hits a ship.
 public class OceanMap extends Map {
     public static final double PERCENTAGE_OF_BOARD = 0.05;
     private static final int[] codePoints1 = {0x1F7E6};

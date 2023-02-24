@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// CLASS-LEVEL COMMENT:
+// This represents a battleship as list of coordinates in the x y plane.
+// It can be rotated or translated to other points.
+// Coordinates can be removed as well to indicate a sunk ship
 public class BattleShip {
     int size;
     private List<Point> coordinates = new ArrayList<>();

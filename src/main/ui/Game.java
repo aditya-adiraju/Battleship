@@ -5,6 +5,8 @@ import model.Player;
 
 import java.util.Scanner;
 
+// CLASS-LEVEL COMMENT:
+// This represents a Game of Battleship with a size and 2 players
 public class Game {
     Player player1;
     Player player2;
@@ -21,7 +23,7 @@ public class Game {
     // REQUIRES:
     // MODIFIES: this
     // EFFECTS: adds ships to given player's board
-    public void intitBoard(Player p) {
+    private void intitBoard(Player p) {
         System.out.println("You will now be placing ships on your map");
         for (int i = 0; i < p.getMaximumShips(); i++) {
             showOceanMap(p);
@@ -128,8 +130,8 @@ public class Game {
     }
 
     // MODIFIES: this
-    // EFFECTS: initialize game and go through each player's turn until win.
-    public void playGame() {
+    // EFFECTS: initialize game and go through each player's turn until win, return true if p1 wins
+    public boolean playGame() {
         boolean attackSuccessful;
         initializeBoards();
         while (!player1.isOver() && !player2.isOver()) {
@@ -149,10 +151,11 @@ public class Game {
         System.out.print("YOU WIN!!!!!!!!! ");
         if (player1.isOver()) {
             System.out.println(player2.getUsername());
+            return false;
         } else {
             System.out.println(player1.getUsername());
+            return true;
         }
-        System.exit(0);
     }
 
     private void initializeBoards() {
