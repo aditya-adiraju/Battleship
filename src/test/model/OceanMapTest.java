@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static model.OceanMap.MISSED_ATTACK;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class OceanMapTest {
@@ -72,14 +73,19 @@ public class OceanMapTest {
         m1.placeShip(bs, 4, 4);
 
         assertFalse(m1.isHit(3, 3));
-
         assertTrue(m1.isHit(4, 4));
         assertFalse(m1.isHit(4, 4));
         assertTrue(m1.isHit(5, 4));
         assertTrue(m1.isHit(6, 4));
         assertTrue(m1.isHit(7, 4));
-
         assertFalse(m1.isHit(8, 4));
+        defaultMap1[3][3] = MISSED_ATTACK;
+        defaultMap1[4][4] = SUNKEN_SHIP;
+        defaultMap1[4][5] = SUNKEN_SHIP;
+        defaultMap1[4][6] = SUNKEN_SHIP;
+        defaultMap1[4][7] = SUNKEN_SHIP;
+        defaultMap1[4][8] = MISSED_ATTACK;
+        assertArrayEquals(defaultMap1, m1.getBoard());
 
     }
 

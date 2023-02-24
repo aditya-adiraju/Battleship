@@ -65,13 +65,25 @@ public class BattleShip {
     // MODIFIES: this
     // EFFECTS: translates coordinates to be w.r.t. given coordinate
     public void translate(int x, int y) {
-        Point baseCoordinate = coordinates.get(0);
+        Point baseCoordinate = getBaseCoordinate();
         int translationFactorX = x - baseCoordinate.x;
         int translationFactorY = y - baseCoordinate.y;
 
         for (Point coordinate: coordinates) {
             coordinate.translate(translationFactorX, translationFactorY);
         }
+    }
+
+    // EFFECTS: returns the start coordinate by finding
+    private Point getBaseCoordinate() {
+        Point result = coordinates.get(0);
+        int minimumSum = result.x + result.y;
+        int coordinateSum;
+        for (Point coordinate : coordinates) {
+            coordinateSum = coordinate.x + coordinate.y;
+            result = (coordinateSum < minimumSum) ? coordinate : result;
+        }
+        return result;
     }
 
     // REQUIRES: Point(x, y) must be in coordinates
