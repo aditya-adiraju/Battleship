@@ -97,14 +97,14 @@ public class PlayerTest {
 
     @Test
     void testIsOver() {
-        assertTrue(p1.isOver());
+        assertTrue(p1.isLose());
         assertTrue(p1.placeShip(bs1, 3, 4));
-        assertFalse(p1.isOver());
+        assertFalse(p1.isLose());
         assertTrue(p1.hitTarget(3, 4));
         assertTrue(p1.hitTarget(4, 4));
         assertTrue(p1.hitTarget(5, 4));
         assertTrue(p1.hitTarget(6, 4));
-        assertTrue(p1.isOver());
+        assertTrue(p1.isLose());
 
     }
 

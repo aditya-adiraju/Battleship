@@ -3,10 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.awt.Point;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,8 +15,8 @@ public class RadarMapTest {
     String[][] defaultMap2;
     BattleShip bs;
     final String EMPTY_SQUARE = Map.EMPTY_SQUARE;
-    final String HIT_SQUARE = RadarMap.HIT_SQUARE;
-    final String MISSED_SQUARE = RadarMap.MISSED_SQUARE;
+    final String HIT_SQUARE = RadarMap.HIT_MISSILE;
+    final String MISSED_SQUARE = RadarMap.MISSED_MISSILE;
 
     @BeforeEach
     void setup() {
