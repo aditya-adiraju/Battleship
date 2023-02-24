@@ -2,10 +2,13 @@ package model;
 
 import java.util.Arrays;
 
+// CLASS-LEVEL COMMENT:
+// An abstract class which represents a map
+// creates and initializes a generic nxn board whose coordinates can be set
 public abstract class Map {
     // RESOURCE USED: to get extended unicode characters
     // https://stackoverflow.com/a/26575039
-    private static int[] codePoints = {0x2B1C};
+    private static final int[] codePoints = {0x2B1C};
     public static final String EMPTY_SQUARE = new String(codePoints, 0, codePoints.length);
 
     int size;

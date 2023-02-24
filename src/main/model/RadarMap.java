@@ -4,9 +4,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// CLASS-LEVEL COMMENT:
+// This represents a radar map
+// You can launch a missile at an opponent's oceanMap
 public class RadarMap extends Map {
-    private static int[] codePoints1 = {0x1F7E0};
-    private static int[] codePoints2 = {0x1F7E2};
+    private static final int[] codePoints1 = {0x1F7E0};
+    private static final int[] codePoints2 = {0x1F7E2};
 
     public static final String HIT_SQUARE = new String(codePoints1, 0, 1);
     public static final String MISSED_SQUARE = new String(codePoints2, 0, 1);
