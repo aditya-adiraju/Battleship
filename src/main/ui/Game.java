@@ -5,6 +5,11 @@ import model.Player;
 
 import java.util.Scanner;
 
+import static model.Map.EMPTY_SQUARE;
+import static model.OceanMap.*;
+import static model.RadarMap.HIT_MISSILE;
+import static model.RadarMap.MISSED_MISSILE;
+
 // CLASS-LEVEL COMMENT:
 // This represents a Game of Battleship with a size and 2 players
 public class Game {
@@ -28,11 +33,20 @@ public class Game {
         for (int i = 0; i < p.getMaximumShips(); i++) {
             showOceanMap(p);
             BattleShip s = new BattleShip(shipSizes[i % shipSizes.length]);
-            displayBoard(s.getShipBoard());
+            showShipMap(s);
             while (!getAndPlaceShip(p, s)) {
                 System.out.println("CANNOT PLACE SHIP THERE");
             }
         }
+    }
+
+    // EFFECTS: renders a formatted view with legend of a ship.
+    private void showShipMap(BattleShip s) {
+        displayBoard(s.getShipBoard());
+        System.out.println("SHIPBOARD LEGEND");
+        System.out.print(EMPTY_SQUARE + ": an empty square\t");
+        System.out.println(SHIP + ": ship");
+        System.out.println(SUNKEN_SHIP + ": ship marker\n");
     }
 
 
@@ -40,14 +54,15 @@ public class Game {
     private void showOceanMap(Player p) {
         System.out.println(p.getUsername() + "'s Ocean Map");
         displayBoard(p.getOceanBoard());
+        displayLegend();
     }
 
     // EFFECTS: renders a formatted view of player's radar map on the console
     private void showRadarMap(Player p) {
         System.out.println(p.getUsername() + "'s Radar Map");
         displayBoard(p.getRadarBoard());
-    }
 
+    }
 
     // EFFECTS: retrieves a set of x, y coordinates from user
     private int[] getCoordinate() {
@@ -63,7 +78,6 @@ public class Game {
         return new int[] {x, y};
     }
 
-    // REQUIRES:
     // MODIFIES: this
     // EFFECTS: adds ships to given player's board, or fails
     private boolean getAndPlaceShip(Player p, BattleShip s) {
@@ -76,7 +90,6 @@ public class Game {
         return p.placeShip(s, x, y);
     }
 
-    // REQUIRES:
     // MODIFIES: s
     // EFFECTS: rotates the ship if user wishes to, and does nothing otherwise.
     private void getRotation(BattleShip s) {
@@ -106,6 +119,18 @@ public class Game {
             letter++;
         }
         System.out.println();
+
+    }
+
+    // EFFECTS: displays a key to understanding symbols
+    private void displayLegend() {
+        System.out.println("\n MAP LEGEND");
+        System.out.print(EMPTY_SQUARE + ": an empty square\t");
+        System.out.println(SHIP + ": an active ship");
+        System.out.print(SUNKEN_SHIP + ": a sunken ship\t");
+        System.out.println(MISSED_ATTACK + ": Missed enemy missile");
+        System.out.print(HIT_MISSILE + ": Your missile sunk a ship\t");
+        System.out.println(MISSED_MISSILE + ": Your missile missed\n");
     }
 
     // EFFECTS: anti-cheating mechanism to pass game between players
@@ -132,24 +157,17 @@ public class Game {
     // MODIFIES: this
     // EFFECTS: initialize game and go through each player's turn until win, return true if p1 wins
     public boolean playGame() {
-        boolean attackSuccessful;
         initializeBoards();
-        while (!player1.isOver() && !player2.isOver()) {
-            attackSuccessful = true;
-            while (attackSuccessful) {
-                attackSuccessful = attack(player1, player2);
+        while (!player1.isLose() && !player2.isLose()) {
+            playTurn(player1, player2);
+            if (player1.isLose() || player2.isLose()) {
+                break;
             }
             passGame(player1);
-            attackSuccessful = true;
-            while (attackSuccessful) {
-                System.out.println("RUNS ");
-                attackSuccessful = attack(player2, player1);
-            }
-            passGame(player2);
+            playTurn(player2, player1);
         }
-
         System.out.print("YOU WIN!!!!!!!!! ");
-        if (player1.isOver()) {
+        if (player1.isLose()) {
             System.out.println(player2.getUsername());
             return false;
         } else {
@@ -158,6 +176,16 @@ public class Game {
         }
     }
 
+    // EFFECTS: plays a single turn for player against opponent
+    private void playTurn(Player player, Player opp) {
+        boolean attackSuccessful = true;
+        while (attackSuccessful) {
+            attackSuccessful = attack(player, opp);
+        }
+        passGame(player2);
+    }
+
+    // EFFECTS: initialize the ships on both player's boards
     private void initializeBoards() {
         intitBoard(player1);
         passGame(player1);
@@ -171,7 +199,7 @@ public class Game {
         int x;
         int y;
         int[] coordinates;
-        if (p.isOver() || opp.isOver()) {
+        if (p.isLose() || opp.isLose()) {
             System.out.println(p.getUsername());
             return false;
         }
@@ -190,12 +218,13 @@ public class Game {
         }
     }
 
+    // EFFECTS: gets coordinates that are valid for the game size, overloaded.
     private int[] getValidCoordinates() {
         return getValidCoordinates(null);
     }
 
     // MODIFIES: this
-    // EFFECTS: get coordinates that are valid for the game size
+    // EFFECTS: get coordinates that are valid for the game size for a battleship
     private int[] getValidCoordinates(BattleShip s) {
         int x;
         int y;

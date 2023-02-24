@@ -95,7 +95,7 @@ public class Player {
     }
 
     // EFFECTS: checks whether any ships are remaining
-    public boolean isOver() {
+    public boolean isLose() {
         return ships.isEmpty();
     }
 }
