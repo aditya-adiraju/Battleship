@@ -23,7 +23,7 @@ public class Main {
             displayScores(p1Name, p2Name, p1Score, p2Score);
             System.out.println("Would you like to continue playing [y/n]");
             char res = in.nextLine().toLowerCase().charAt(0);
-            if (res == 'y') {
+            if (res != 'y') {
                 break;
             }
         }
