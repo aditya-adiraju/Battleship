@@ -74,7 +74,11 @@ public class Game {
         coordinate = in.next().toUpperCase();
         y = coordinate.charAt(0);
         y -= 65;
-        x = Character.getNumericValue(coordinate.charAt(1));
+        try {
+            x = Integer.parseInt(coordinate.substring(1));
+        } catch (NumberFormatException e) {
+            x = -1;
+        }
         return new int[] {x, y};
     }
 
