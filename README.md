@@ -23,5 +23,6 @@ As a user, I want to be able to:
 - add ships to my board
 - choose coordinates to strike on my opponent's board for my missiles
 - play a game of Battleship with different board sizes
-- save a tally of my wins against others
-- pause and resume the game at a later point in time (Battleship is a long game that can take over 30 minutes)
+- save and load a tally of my wins against others
+- save the game against an opponent (Battleship is a long game that can take over 30 minutes)
+- load a pre-existing game of Battleship
