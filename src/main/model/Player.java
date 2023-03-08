@@ -1,22 +1,36 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
+import java.nio.file.Watchable;
 import java.util.ArrayList;
 import java.util.List;
 
 // CLASS-LEVEL COMMENT:
 // This represents a player with an OceanMap and RadarMap
 // they can launchAttacks to opponents or place a ship.
-public class Player {
+public class Player implements Writable {
     private final OceanMap oceanMap;
     private final RadarMap radarMap;
     private final String username;
     private final List<BattleShip> ships;
 
+    // EFFECTS: creates a new Player with a radar map, ships, a username and an ocean map
     public Player(String username, int size) {
         this.oceanMap = new OceanMap(size);
         this.radarMap = new RadarMap(size);
         this.username = username;
         this.ships = new ArrayList<>();
+    }
+
+    // EFFECTS: Overloaded version of player constructor that assigns players all attributes immediately
+    public Player(String username, OceanMap oceanMap, RadarMap radarMap, List<BattleShip> ships) {
+        this.oceanMap = oceanMap;
+        this.radarMap = radarMap;
+        this.username = username;
+        this.ships = ships;
     }
 
     public List<BattleShip> getShips() {
@@ -97,5 +111,20 @@ public class Player {
     // EFFECTS: checks whether any ships are remaining
     public boolean isLose() {
         return ships.isEmpty();
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        JSONArray shipsJson = new JSONArray();
+        for (BattleShip b : ships) {
+            shipsJson.put(b.toJson());
+        }
+        json.put("username", username);
+        json.put("oceanMap", oceanMap.toJson());
+        json.put("radarMap", radarMap.toJson());
+        json.put("ships", shipsJson);
+
+        return json;
     }
 }

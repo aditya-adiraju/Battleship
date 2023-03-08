@@ -2,6 +2,7 @@ package ui;
 
 import java.util.Scanner;
 
+// CLASS-LEVEL COMMENT: main entrypoint for user to interact with and start/load games
 public class Main {
 
     public static void main(String[] args) {

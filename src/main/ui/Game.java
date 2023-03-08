@@ -2,6 +2,8 @@ package ui;
 
 import model.BattleShip;
 import model.Player;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.Scanner;
 
@@ -12,17 +14,35 @@ import static model.RadarMap.MISSED_MISSILE;
 
 // CLASS-LEVEL COMMENT:
 // This represents a Game of Battleship with a size and 2 players
-public class Game {
+public class Game implements Writable {
     Player player1;
     Player player2;
+    public static final String DEFAULT_NAME = "John Doe";
     int size;
     Scanner in = new Scanner(System.in);
     private static final int[] shipSizes = {2, 2, 3, 4, 5};
 
+    // EFFECTS: creates a new Game object with a player and size.
     public Game(String p1Name, String p2Name, int size) {
         player1 = new Player(p1Name, size);
         player2 = new Player(p2Name, size);
         this.size = size;
+    }
+
+    public Game(int size) {
+        new Game(DEFAULT_NAME, DEFAULT_NAME, size);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets player1 to given Player object
+    public void setPlayer1(Player player1) {
+        this.player1 = player1;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets player2 to given Player object
+    public void setPlayer2(Player player2) {
+        this.player2 = player2;
     }
 
     // REQUIRES:
@@ -248,5 +268,14 @@ public class Game {
             y = coordinates[1];
         }
         return coordinates;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("size", size);
+        json.put("player1", player1.toJson());
+        json.put("player2", player2.toJson());
+        return json;
     }
 }
