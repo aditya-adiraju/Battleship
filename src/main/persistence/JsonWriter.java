@@ -1,5 +1,6 @@
 package persistence;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -43,5 +44,13 @@ public class JsonWriter {
     // EFFECTS: closes PrintWriter object and its corresponding file stream.
     public void close() {
         this.writer.close();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: add the given JSON Array payload to the end of a file
+    public void writeScoreList(JSONArray scoreListJson) {
+        JSONObject json = new JSONObject();
+        json.put("scores", scoreListJson);
+        appendToFile(json.toString(TAB));
     }
 }

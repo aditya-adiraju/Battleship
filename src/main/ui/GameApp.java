@@ -1,17 +1,26 @@
 package ui;
 
+import model.BattleShip;
+import model.Score;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import persistence.JsonReader;
+import persistence.JsonWriter;
+import persistence.Writable;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 // CLASS-LEVEL COMMENT: GameApp for user to interact with and start/load games
 public class GameApp {
 
     public static final String GAME_PATH = "./data/game.json";
+    private static final String SCORE_PATH = "./data/scores.json";
     Game game;
-    int p1Score = 0;
-    int p2Score = 0;
+    List<Score> scoreList = loadScores();
 
 
     // EFFECTS: constructs an instance of a new Game App.
@@ -30,11 +39,34 @@ public class GameApp {
     }
 
 
-    // EFFECTS: prints out the scores between p1 and p2
-    private void displayScores(String p1Name, String p2Name, int p1Score, int p2Score) {
+    // EFFECTS: prints out the scores between all players
+    private void displayScores(List<Score> scores) {
         System.out.println("THE SCOREBOARD");
-        System.out.println(p1Name + ": " + p1Score);
-        System.out.println(p2Name + ": " + p2Score);
+        for (Score s : scores) {
+            System.out.println(s.getName() + ": " + s.getPoints());
+        }
+    }
+
+    // EFFECTS: add a new a score to the list of scores
+    private void addScores(String name, int points) {
+        for (Score s : scoreList) {
+            if (s.getName().equals(name)) {
+                s.setPoints(points);
+                return;
+            }
+        }
+        scoreList.add(new Score(name, points));
+    }
+
+    // EFFECTS: increments a score of a given player
+    private void incrementScores(String name) {
+        for (Score s : scoreList) {
+            if (s.getName().equals(name)) {
+                s.setPoints(s.getPoints() + 1);
+                return;
+            }
+        }
+        scoreList.add(new Score(name, 1));
     }
 
 
@@ -64,11 +96,12 @@ public class GameApp {
         while (true) {
             gameResult = processCommand();
             if (gameResult) {
-                p1Score++;
+                incrementScores(game.player1.getUsername());
             } else {
-                p2Score++;
+                incrementScores(game.player2.getUsername());
             }
-            displayScores(game.player1.getUsername(), game.player2.getUsername(), p1Score, p2Score);
+            displayScores(scoreList);
+            saveScores();
             System.out.println("Would you like to continue playing [y/n]");
             char res = in.nextLine().toLowerCase().charAt(0);
             if (res != 'y') {
@@ -116,6 +149,32 @@ public class GameApp {
         } catch (IOException e) {
             System.out.println("Cannot find a saved file");
         }
+    }
+
+    void saveScores() {
+        JSONArray scoreListJson = new JSONArray();
+        for (Score s : scoreList) {
+            scoreListJson.put(s.toJson());
+        }
+        JsonWriter w = new JsonWriter(GAME_PATH);
+        try {
+            w.open();
+            w.writeScoreList(scoreListJson);
+            w.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to Write to file, path not found: " + GAME_PATH);
+        }
+    }
+
+    List<Score> loadScores() {
+        JsonReader jsonReader = new JsonReader(SCORE_PATH);
+        List<Score> scores;
+        try {
+            return jsonReader.readScoreList();
+        } catch (IOException e) {
+            System.out.println("Cannot find a saved file");
+        }
+        return new ArrayList<>();
     }
 
 }

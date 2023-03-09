@@ -152,7 +152,12 @@ class BattleShipTest {
     @Test
     void testEquals() {
         assertTrue(bs1.equals(bs1));
+        assertFalse(bs1.equals(null));
         assertFalse(bs1.equals(bs2));
+        BattleShip bsNew = new BattleShip(2);
+        bsNew.removeCoordinate(0, 0);
+        assertFalse(bs1.equals(bsNew));
+        assertFalse(bs2.equals(bsNew));
         assertTrue(bs5.equals(new BattleShip(5)));
     }
 
