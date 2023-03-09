@@ -37,6 +37,8 @@ class ScoreTest {
         assertFalse(s1.equals(s3));
         assertFalse(s3.equals(s4));
         assertFalse(s5.equals(s4));
+
+        assertFalse(s1.equals("HELLO"));
     }
 
     @Test
