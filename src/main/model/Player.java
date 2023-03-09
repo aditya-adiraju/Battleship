@@ -7,6 +7,7 @@ import persistence.Writable;
 import java.nio.file.Watchable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 // CLASS-LEVEL COMMENT:
 // This represents a player with an OceanMap and RadarMap
@@ -113,6 +114,7 @@ public class Player implements Writable {
         return ships.isEmpty();
     }
 
+    // EFFECTS: returns a json object version of a player
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

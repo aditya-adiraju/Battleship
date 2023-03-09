@@ -20,6 +20,24 @@ public class MapTest {
     }
 
     @Test
+    void testSetBoard() {
+        String[][] er1 = new String[12][12];
+        for(String[] row: er1) {
+            Arrays.fill(row, EMPTY_SQUARE);
+        }
+        er1[0][0] = OceanMap.SUNKEN_SHIP;
+        m1.setBoard(er1);
+        assertArrayEquals(er1, m1.getBoard());
+
+        String[][] er2 = new String[10][10];
+        for(String[] row: er2) {
+            Arrays.fill(row, EMPTY_SQUARE);
+        }
+        er1[2][1] = RadarMap.HIT_MISSILE;
+        m1.setBoard(er2);
+        assertArrayEquals(er2, m2.getBoard());
+    }
+    @Test
     void testSetCoordinate() {
         String[][] er1 = new String[12][12];
         for(String[] row: er1) {

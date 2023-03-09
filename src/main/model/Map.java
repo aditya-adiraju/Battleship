@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 // CLASS-LEVEL COMMENT:
 // An abstract class which represents a map
@@ -42,6 +43,7 @@ public abstract class Map implements Writable {
         this.board[y][x] = s;
     }
 
+    // EFFECTS: returns a json object version of a map
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -58,5 +60,4 @@ public abstract class Map implements Writable {
         json.put("board", allRows);
         return json;
     }
-
 }

@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.awt.*;
+import java.util.Objects;
 
 // CLASS-LEVEL COMMENT:
 // This represents the player's ocean map which holds their ships
@@ -83,6 +84,7 @@ public class OceanMap extends Map implements Writable {
         return false;
     }
 
+    // EFFECTS: returns a json object version of an oceanmap
     @Override
     public JSONObject toJson() {
         JSONObject json = super.toJson();

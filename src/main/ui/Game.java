@@ -32,6 +32,8 @@ public class Game implements Writable {
         this.size = size;
     }
 
+
+    // EFFECTS: constructor of game with default names
     public Game(int size) {
         player1 = new Player(DEFAULT_NAME, size);
         player2 = new Player(DEFAULT_NAME, size);
@@ -183,6 +185,8 @@ public class Game implements Writable {
         }
     }
 
+
+    // EFFECTS: overloaded version of playGame when new game is played
     public boolean playGame(boolean isNew) {
         if (isNew) {
             initializeBoards();
@@ -287,6 +291,8 @@ public class Game implements Writable {
         return coordinates;
     }
 
+
+    // EFFECTS: saves a game to game.json
     void saveGame() {
         JsonWriter w = new JsonWriter(GAME_PATH);
         try {
@@ -298,6 +304,7 @@ public class Game implements Writable {
         }
     }
 
+    // EFFECTS: returns a json object for a gamefile
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -305,5 +312,17 @@ public class Game implements Writable {
         json.put("player1", player1.toJson());
         json.put("player2", player2.toJson());
         return json;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
     }
 }

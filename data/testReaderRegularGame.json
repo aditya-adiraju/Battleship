@@ -95,7 +95,7 @@
         ]
       ]
     },
-    "username": "hello"
+    "username": "Charlie"
   },
   "player2": {
     "oceanMap": {
@@ -186,6 +186,6 @@
         ]
       ]
     },
-    "username": "adsf"
+    "username": "David"
   }
 }

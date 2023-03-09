@@ -13,12 +13,15 @@ public class GameApp {
     int p1Score = 0;
     int p2Score = 0;
 
-    public GameApp() {
 
+    // EFFECTS: constructs an instance of a new Game App.
+    public GameApp() {
         System.out.println("BATTLESHIP: THE GAME!!");
         playNewGame();
     }
 
+
+    // EFFECTS: displays a set of options for the user to choose from
     private void displayMenu() {
         System.out.println("\nMAIN MENU:");
         System.out.println("n\tStart a new game");
@@ -34,6 +37,8 @@ public class GameApp {
         System.out.println(p2Name + ": " + p2Score);
     }
 
+
+    // EFFECTS: parses user input and performs appropriate task
     private boolean processCommand() {
         Scanner in = new Scanner(System.in);
         displayMenu();
@@ -52,6 +57,7 @@ public class GameApp {
         }
     }
 
+    // EFFECTS: plays a new game of battleship
     private void playNewGame() {
         boolean gameResult;
         Scanner in = new Scanner(System.in);
@@ -81,6 +87,8 @@ public class GameApp {
         return game.playGame(true);
     }
 
+
+    // EFFECTS: continues playing a given game of battleship
     public boolean playGame(Game g) {
         return g.playGame();
     }
@@ -99,6 +107,8 @@ public class GameApp {
         return size;
     }
 
+
+    // EFFECTS: loads a saved game from game.json
     void loadGame() {
         JsonReader jsonReader = new JsonReader(GAME_PATH);
         try {

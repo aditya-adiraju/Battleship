@@ -8,6 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 // CLASS-LEVEL COMMENT:
 // This represents a battleship as list of coordinates in the x y plane.
@@ -121,6 +122,7 @@ public class BattleShip implements Writable {
         return grid;
     }
 
+    // EFFECTS: returns a json object version of a battleship
     @Override
     public JSONObject toJson() {
         JSONObject point;
@@ -135,5 +137,24 @@ public class BattleShip implements Writable {
         }
         json.put("coordinates", jsonArray);
         return json;
+    }
+
+    // EFFECTS: returns whether two battleships have the same attributes
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BattleShip that = (BattleShip) o;
+        return getSize() == that.getSize() && Objects.equals(getCoordinates(), that.getCoordinates());
+    }
+
+    // EFFECTS: returns a hashcode corresponding to bs's attributes
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSize(), getCoordinates());
     }
 }
