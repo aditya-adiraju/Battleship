@@ -156,13 +156,13 @@ public class GameApp {
         for (Score s : scoreList) {
             scoreListJson.put(s.toJson());
         }
-        JsonWriter w = new JsonWriter(GAME_PATH);
+        JsonWriter w = new JsonWriter(SCORE_PATH);
         try {
             w.open();
             w.writeScoreList(scoreListJson);
             w.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to Write to file, path not found: " + GAME_PATH);
+            System.out.println("Unable to Write to file, path not found: " + SCORE_PATH);
         }
     }
 
