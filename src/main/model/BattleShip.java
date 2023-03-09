@@ -131,6 +131,7 @@ public class BattleShip implements Writable {
             point = new JSONObject();
             point.put("x", c.x);
             point.put("y", c.y);
+            jsonArray.put(point);
         }
         json.put("coordinates", jsonArray);
         return json;

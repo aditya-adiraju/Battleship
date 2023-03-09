@@ -33,7 +33,9 @@ public class Game implements Writable {
     }
 
     public Game(int size) {
-        new Game(DEFAULT_NAME, DEFAULT_NAME, size);
+        player1 = new Player(DEFAULT_NAME, size);
+        player2 = new Player(DEFAULT_NAME, size);
+        this.size = size;
     }
 
     // MODIFIES: this
@@ -181,29 +183,36 @@ public class Game implements Writable {
         }
     }
 
+    public boolean playGame(boolean isNew) {
+        if (isNew) {
+            initializeBoards();
+        }
+        return playGame();
+    }
+
     // MODIFIES: this
     // EFFECTS: initialize game and go through each player's turn until win, return true if p1 wins
-    public int playGame() {
-        initializeBoards();
+    public boolean playGame() {
         while (!player1.isLose() && !player2.isLose()) {
+            System.out.println("Would you like to save your game and quit [y/n]");
+            char res = in.nextLine().toLowerCase().charAt(0);
+            if (res == 'y') {
+                saveGame();
+                System.exit(0);
+            }
             playTurn(player1, player2);
             if (player1.isLose() || player2.isLose()) {
                 break;
             }
             playTurn(player2, player1);
-            System.out.println("Would you like to save your game and quit [y/n]");
-            char res = in.nextLine().toLowerCase().charAt(0);
-            if (res == 'y') {
-                return 2;
-            }
         }
         System.out.print("YOU WIN!!!!!!!!! ");
         if (player1.isLose()) {
             System.out.println(player2.getUsername());
-            return 0;
+            return false;
         } else {
             System.out.println(player1.getUsername());
-            return 1;
+            return true;
         }
     }
 
@@ -276,6 +285,17 @@ public class Game implements Writable {
             y = coordinates[1];
         }
         return coordinates;
+    }
+
+    void saveGame() {
+        JsonWriter w = new JsonWriter(GAME_PATH);
+        try {
+            w.open();
+            w.write(this);
+            w.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to Write to file, path not found: " + GAME_PATH);
+        }
     }
 
     @Override
