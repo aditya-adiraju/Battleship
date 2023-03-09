@@ -1,19 +1,24 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 // CLASS-LEVEL COMMENT:
 // This represents a battleship as list of coordinates in the x y plane.
 // It can be rotated or translated to other points.
 // Coordinates can be removed as well to indicate a sunk ship
-public class BattleShip {
+public class BattleShip implements Writable {
     int size;
     private List<Point> coordinates = new ArrayList<>();
 
-
+    // EFFECTS: creates a new battleship with given number of coordinates on cartesian plane
     public BattleShip(int size) {
         this.size = size;
         for (int i = 0; i < size; i++) {
@@ -27,6 +32,10 @@ public class BattleShip {
 
     public List<Point> getCoordinates() {
         return coordinates;
+    }
+
+    public void setCoordinates(List<Point> coordinates) {
+        this.coordinates = coordinates;
     }
 
     // EFFECTS: checks whether given coordinate exists on battleship
@@ -111,5 +120,41 @@ public class BattleShip {
         }
         grid[0][0] = OceanMap.SUNKEN_SHIP;
         return grid;
+    }
+
+    // EFFECTS: returns a json object version of a battleship
+    @Override
+    public JSONObject toJson() {
+        JSONObject point;
+        JSONObject json = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        json.put("size", size);
+        for (Point c : coordinates) {
+            point = new JSONObject();
+            point.put("x", c.x);
+            point.put("y", c.y);
+            jsonArray.put(point);
+        }
+        json.put("coordinates", jsonArray);
+        return json;
+    }
+
+    // EFFECTS: returns whether two battleships have the same attributes
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BattleShip that = (BattleShip) o;
+        return getSize() == that.getSize() && Objects.equals(getCoordinates(), that.getCoordinates());
+    }
+
+    // EFFECTS: returns a hashcode corresponding to bs's attributes
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSize(), getCoordinates());
     }
 }
