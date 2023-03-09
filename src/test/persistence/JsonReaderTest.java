@@ -1,9 +1,7 @@
 package persistence;
 
-import model.BattleShip;
-import model.OceanMap;
-import model.Player;
-import model.RadarMap;
+import model.*;
+import org.json.JSONArray;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ui.Game;
@@ -15,8 +13,34 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonReaderTest extends JsonTest {
-    @BeforeEach
-    void setUp() {
+
+    @Test
+    void testWriterEmptyScore() {
+        try {
+            List<Score> scoreList = new ArrayList<>();
+            JsonReader reader = new JsonReader("./data/testReaderEmptyScores.json");
+            List<Score> actualScoreList = reader.readScoreList();
+            assertIterableEquals(scoreList, actualScoreList);
+        } catch (IOException e) {
+            fail("Oopsie scoreList was not empty");
+        }
+
+    }
+
+    @Test
+    void testWriterNormalScore() {
+        try {
+            List<Score> scoreList = new ArrayList<>();
+            scoreList.add(new Score("Charlie", 21));
+            scoreList.add(new Score("David", 99));
+            scoreList.add(new Score("Eva", 42));
+            JsonReader reader = new JsonReader("./data/testReaderNormalScores.json");
+            List<Score> actualScoreList = reader.readScoreList();
+            assertIterableEquals(scoreList, actualScoreList);
+        } catch (IOException e) {
+            fail("OOPSIE something went wrong :(");
+        }
+
     }
 
     @Test

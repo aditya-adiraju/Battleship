@@ -33,6 +33,25 @@ public class JsonReader {
 
     }
 
+    public List<Score> readScoreList() throws IOException {
+        String data = readFile(src);
+        JSONObject json = new JSONObject(data);
+        return parseScoreList(json);
+    }
+
+    private List<Score> parseScoreList(JSONObject jsonObject) {
+        JSONArray scores = jsonObject.getJSONArray("scores");
+        List<Score> scoreList = new ArrayList<>();
+        for (Object score : scores) {
+            JSONObject nextScore = (JSONObject) score;
+            String name = nextScore.getString("name");
+            int points = nextScore.getInt("points");
+            scoreList.add(new Score(name, points));
+        }
+
+        return scoreList;
+    }
+
     // EFFECTS: reads a JSON file from a given file path and returns a JSONstring
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();

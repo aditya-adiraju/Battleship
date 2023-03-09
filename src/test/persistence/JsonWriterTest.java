@@ -1,11 +1,15 @@
 package persistence;
 
 import model.BattleShip;
+import model.Score;
+import org.json.JSONArray;
 import org.junit.jupiter.api.Test;
 import ui.Game;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,6 +25,55 @@ class JsonWriterTest extends JsonTest {
         } catch (FileNotFoundException e) {
             // All goooood :)
         }
+    }
+
+    @Test
+    void testWriterEmptyScore() {
+        try {
+            JsonWriter writer = new JsonWriter("./data/testWriterEmptyScores.json");
+            List<Score> scoreList = new ArrayList<>();
+            JSONArray scoreListJson = new JSONArray();
+            for (Score s : scoreList) {
+                scoreListJson.put(s.toJson());
+            }
+
+            writer.open();
+            writer.writeScoreList(scoreListJson);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterEmptyScores.json");
+            List<Score> actualScoreList = reader.readScoreList();
+            assertIterableEquals(scoreList, actualScoreList);
+        } catch (IOException e) {
+            fail("Oopsie scoreList was not empty");
+        }
+
+    }
+
+    @Test
+    void testWriterNormalScore() {
+        try {
+            JsonWriter writer = new JsonWriter("./data/testWriterNormalScores.json");
+            List<Score> scoreList = new ArrayList<>();
+            scoreList.add(new Score("Alice", 21));
+            scoreList.add(new Score("Bob", 99));
+
+            JSONArray scoreListJson = new JSONArray();
+            for (Score s : scoreList) {
+                scoreListJson.put(s.toJson());
+            }
+
+            writer.open();
+            writer.writeScoreList(scoreListJson);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterNormalScores.json");
+            List<Score> actualScoreList = reader.readScoreList();
+            assertIterableEquals(scoreList, actualScoreList);
+        } catch (IOException e) {
+            fail("OOPSIE something went wrong :(");
+        }
+
     }
 
     @Test
