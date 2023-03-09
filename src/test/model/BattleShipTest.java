@@ -159,6 +159,7 @@ class BattleShipTest {
         assertFalse(bs1.equals(bsNew));
         assertFalse(bs2.equals(bsNew));
         assertTrue(bs5.equals(new BattleShip(5)));
+        assertFalse(bs1.equals("HELLO"));
     }
 
     @Test
