@@ -3,14 +3,17 @@ package ui;
 import model.BattleShip;
 import model.Player;
 import org.json.JSONObject;
+import persistence.JsonWriter;
 import persistence.Writable;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import static model.Map.EMPTY_SQUARE;
 import static model.OceanMap.*;
 import static model.RadarMap.HIT_MISSILE;
 import static model.RadarMap.MISSED_MISSILE;
+import static ui.GameApp.GAME_PATH;
 
 // CLASS-LEVEL COMMENT:
 // This represents a Game of Battleship with a size and 2 players
@@ -180,7 +183,7 @@ public class Game implements Writable {
 
     // MODIFIES: this
     // EFFECTS: initialize game and go through each player's turn until win, return true if p1 wins
-    public boolean playGame() {
+    public int playGame() {
         initializeBoards();
         while (!player1.isLose() && !player2.isLose()) {
             playTurn(player1, player2);
@@ -188,14 +191,19 @@ public class Game implements Writable {
                 break;
             }
             playTurn(player2, player1);
+            System.out.println("Would you like to save your game and quit [y/n]");
+            char res = in.nextLine().toLowerCase().charAt(0);
+            if (res == 'y') {
+                return 2;
+            }
         }
         System.out.print("YOU WIN!!!!!!!!! ");
         if (player1.isLose()) {
             System.out.println(player2.getUsername());
-            return false;
+            return 0;
         } else {
             System.out.println(player1.getUsername());
-            return true;
+            return 1;
         }
     }
 

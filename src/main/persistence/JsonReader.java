@@ -19,10 +19,13 @@ import java.util.stream.Stream;
 public class JsonReader {
     private String src;
 
+    // EFFECTS: Constructs an object that can read JSON files.
     public JsonReader(String src) {
         this.src = src;
     }
 
+    // EFFECTS: reads a Game from a given file and returns the game;
+    // It can throw an IOException
     public Game readGame() throws IOException {
         String data = readFile(src);
         JSONObject json = new JSONObject(data);
@@ -30,6 +33,7 @@ public class JsonReader {
 
     }
 
+    // EFFECTS: reads a JSON file from a given file path and returns a JSONstring
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
@@ -41,6 +45,7 @@ public class JsonReader {
     }
 
 
+    // EFFECTS: parses Game from JSON object and returns it
     private Game parseGame(JSONObject jsonObject) {
         int size = jsonObject.getInt("size");
         JSONObject p1 = jsonObject.getJSONObject("player1");
@@ -55,6 +60,7 @@ public class JsonReader {
         return g;
     }
 
+    // EFFECTS: parses a player from a JSON object and returns player
     private Player parsePlayer(JSONObject player) {
         String username = player.getString("username");
         OceanMap oceanMap = parseOceanMap(player.getJSONObject("oceanMap"));
@@ -65,6 +71,7 @@ public class JsonReader {
         return p;
     }
 
+    // EFFECTS: parses all ships from a JSON Array and returns a list of Battleships
     private List<BattleShip> parseShips(JSONArray ships) {
         List<BattleShip> battleShips = new ArrayList<>();
         for (Object ship : ships) {
@@ -75,6 +82,7 @@ public class JsonReader {
         return battleShips;
     }
 
+    // EFFECTS: parses a BattleShip from a JSON object and returns the battleship
     private BattleShip parseBattleShip(JSONObject ship) {
         int size = ship.getInt("size");
         JSONArray coordinates = ship.getJSONArray("coordinates");
@@ -88,12 +96,14 @@ public class JsonReader {
         return s;
     }
 
+    // EFFECTS: parses a Point in a JSON object and returns the point
     private Point parsePoint(JSONObject point) {
         int x = point.getInt("x");
         int y = point.getInt("y");
         return new Point(x, y);
     }
 
+    // EFFECTS: parses a Radar Map from a JSON object and returns the radar map.
     private RadarMap parseRadarMap(JSONObject radarMap) {
         int size = radarMap.getInt("size");
         JSONArray board = radarMap.getJSONArray("board");
@@ -102,6 +112,7 @@ public class JsonReader {
         return rm;
     }
 
+    // EFFECTS: parses an Ocean Map from a JSON object and returns the ocean map
     private OceanMap parseOceanMap(JSONObject oceanMap) {
         int size = oceanMap.getInt("size");
         JSONArray board = oceanMap.getJSONArray("board");
@@ -112,6 +123,8 @@ public class JsonReader {
         return om;
     }
 
+    // MODIFIES: m
+    // EFFECTS: parses a board from a JSON object and adds to a map object
     // RESOURCE: https://stackoverflow.com/a/57917460
     private void parseMapBoard(Map m, JSONArray board) {
         for (int i = 0; i < board.length(); i++) {
