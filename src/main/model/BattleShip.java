@@ -118,7 +118,6 @@ public class BattleShip implements Writable {
         for (Point coordinate: getCoordinates()) {
             grid[coordinate.y][coordinate.x] = OceanMap.SHIP;
         }
-        grid[0][0] = OceanMap.SUNKEN_SHIP;
         return grid;
     }
 

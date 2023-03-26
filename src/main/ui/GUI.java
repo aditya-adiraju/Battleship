@@ -1,21 +1,35 @@
 package ui;
 
-import model.OceanMap;
-import model.RadarMap;
-import ui.templates.GameFrame;
-import ui.util.DrawingUtilities;
+import model.BattleShip;
+import persistence.JsonReader;
+import ui.templates.SelectionFrame;
+import ui.templates.TurnFrame;
 
-import java.awt.*;
+import java.io.IOException;
+
+import static ui.GameApp.GAME_PATH;
 
 public class GUI {
-    public GUI() {
-        GameFrame gameFrame = new GameFrame();
-        gameFrame.setLayout(new GridLayout(2, 1, 50, 50));
-        gameFrame.setPreferredSize(new Dimension(400, 900));
-        gameFrame.add(DrawingUtilities.renderMap(new RadarMap(10)));
-        gameFrame.add(DrawingUtilities.renderMap(new OceanMap(10)));
-        gameFrame.pack();
-        gameFrame.setVisible(true);
 
+    public GUI() {
+        Game game = initializeGame();
+        new SelectionFrame(game);
     }
+
+    private Game initializeGame() {
+        Game game = new Game("Eve", "Fran", 5);
+        return game;
+    }
+
+    // EFFECTS: loads a saved game from game.json
+    Game loadGame() {
+        JsonReader jsonReader = new JsonReader(GAME_PATH);
+        try {
+            return jsonReader.readGame();
+        } catch (IOException e) {
+            System.out.println("Cannot find a saved file");
+        }
+        return null;
+    }
+
 }

@@ -23,7 +23,8 @@ public class Game implements Writable {
     public static final String DEFAULT_NAME = "John Doe";
     int size;
     Scanner in = new Scanner(System.in);
-    private static final int[] shipSizes = {2, 2, 3, 4, 5};
+    public static final int[] shipSizes = {2, 2, 3, 4, 5};
+    int currentPlayer = 0;
 
     // EFFECTS: creates a new Game object with a player and size.
     public Game(String p1Name, String p2Name, int size) {
@@ -293,7 +294,7 @@ public class Game implements Writable {
 
 
     // EFFECTS: saves a game to game.json
-    void saveGame() {
+    public void saveGame() {
         JsonWriter w = new JsonWriter(GAME_PATH);
         try {
             w.open();
@@ -318,11 +319,29 @@ public class Game implements Writable {
         return size;
     }
 
+    public int isOver() {
+        if (player1.isLose()) {
+            return 1;
+        } else if (player2.isLose()) {
+            return 2;
+        } else {
+            return 0;
+        }
+    }
+
     public Player getPlayer1() {
         return player1;
     }
 
     public Player getPlayer2() {
         return player2;
+    }
+
+    public void changeCurrentPlayer() {
+        currentPlayer = (currentPlayer + 1) % 2;
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
     }
 }
