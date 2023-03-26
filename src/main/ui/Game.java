@@ -2,27 +2,54 @@ package ui;
 
 import model.BattleShip;
 import model.Player;
+import org.json.JSONObject;
+import persistence.JsonWriter;
+import persistence.Writable;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import static model.Map.EMPTY_SQUARE;
 import static model.OceanMap.*;
 import static model.RadarMap.HIT_MISSILE;
 import static model.RadarMap.MISSED_MISSILE;
+import static ui.GameApp.GAME_PATH;
 
 // CLASS-LEVEL COMMENT:
 // This represents a Game of Battleship with a size and 2 players
-public class Game {
+public class Game implements Writable {
     Player player1;
     Player player2;
+    public static final String DEFAULT_NAME = "John Doe";
     int size;
     Scanner in = new Scanner(System.in);
     private static final int[] shipSizes = {2, 2, 3, 4, 5};
 
+    // EFFECTS: creates a new Game object with a player and size.
     public Game(String p1Name, String p2Name, int size) {
         player1 = new Player(p1Name, size);
         player2 = new Player(p2Name, size);
         this.size = size;
+    }
+
+
+    // EFFECTS: constructor of game with default names
+    public Game(int size) {
+        player1 = new Player(DEFAULT_NAME, size);
+        player2 = new Player(DEFAULT_NAME, size);
+        this.size = size;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets player1 to given Player object
+    public void setPlayer1(Player player1) {
+        this.player1 = player1;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets player2 to given Player object
+    public void setPlayer2(Player player2) {
+        this.player2 = player2;
     }
 
     // REQUIRES:
@@ -74,7 +101,11 @@ public class Game {
         coordinate = in.next().toUpperCase();
         y = coordinate.charAt(0);
         y -= 65;
-        x = Character.getNumericValue(coordinate.charAt(1));
+        try {
+            x = Integer.parseInt(coordinate.substring(1));
+        } catch (NumberFormatException e) {
+            x = -1;
+        }
         return new int[] {x, y};
     }
 
@@ -154,16 +185,29 @@ public class Game {
         }
     }
 
+
+    // EFFECTS: overloaded version of playGame when new game is played
+    public boolean playGame(boolean isNew) {
+        if (isNew) {
+            initializeBoards();
+        }
+        return playGame();
+    }
+
     // MODIFIES: this
     // EFFECTS: initialize game and go through each player's turn until win, return true if p1 wins
     public boolean playGame() {
-        initializeBoards();
         while (!player1.isLose() && !player2.isLose()) {
+            System.out.println("Would you like to save your game and quit [y/n]");
+            char res = in.nextLine().toLowerCase().charAt(0);
+            if (res == 'y') {
+                saveGame();
+                System.exit(0);
+            }
             playTurn(player1, player2);
             if (player1.isLose() || player2.isLose()) {
                 break;
             }
-            passGame(player1);
             playTurn(player2, player1);
         }
         System.out.print("YOU WIN!!!!!!!!! ");
@@ -182,7 +226,7 @@ public class Game {
         while (attackSuccessful) {
             attackSuccessful = attack(player, opp);
         }
-        passGame(player2);
+        passGame(player);
     }
 
     // EFFECTS: initialize the ships on both player's boards
@@ -245,5 +289,40 @@ public class Game {
             y = coordinates[1];
         }
         return coordinates;
+    }
+
+
+    // EFFECTS: saves a game to game.json
+    void saveGame() {
+        JsonWriter w = new JsonWriter(GAME_PATH);
+        try {
+            w.open();
+            w.write(this);
+            w.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to Write to file, path not found: " + GAME_PATH);
+        }
+    }
+
+    // EFFECTS: returns a json object for a gamefile
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("size", size);
+        json.put("player1", player1.toJson());
+        json.put("player2", player2.toJson());
+        return json;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
     }
 }

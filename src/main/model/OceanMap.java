@@ -1,11 +1,16 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.awt.*;
+import java.util.Objects;
 
 // CLASS-LEVEL COMMENT:
 // This represents the player's ocean map which holds their ships
 // You can place ships and check whether a given coordinate hits a ship.
-public class OceanMap extends Map {
+public class OceanMap extends Map implements Writable {
     public static final double PERCENTAGE_OF_BOARD = 0.05;
     private static final int[] codePoints1 = {0x1F7E6};
     private static final int[] codePoints2 = {0x1F7E5};
@@ -17,6 +22,7 @@ public class OceanMap extends Map {
     protected int numberOfShips;
     protected int maxNumberOfShips;
 
+    // EFFECTS: creates an OceanMap with given size and decides on maximum number pf Ships
     public OceanMap(int size) {
         super(size);
         this.numberOfShips = 0;
@@ -29,6 +35,10 @@ public class OceanMap extends Map {
 
     public int getMaxNumberOfShips() {
         return maxNumberOfShips;
+    }
+
+    public void setNumberOfShips(int numberOfShips) {
+        this.numberOfShips = numberOfShips;
     }
 
     // REQUIRES: 0 <= x < size, 0 <= y < size, numberOfShips < maxNumberOfShips
@@ -72,5 +82,13 @@ public class OceanMap extends Map {
             setCoordinate(MISSED_ATTACK, x, y);
         }
         return false;
+    }
+
+    // EFFECTS: returns a json object version of an oceanmap
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = super.toJson();
+        json.put("numberOfShips", numberOfShips);
+        return json;
     }
 }
