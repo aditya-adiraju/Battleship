@@ -10,7 +10,7 @@ public class RadarMap extends Map {
     public static final String HIT_MISSILE = new String(codePoints1, 0, 1);
     public static final String MISSED_MISSILE = new String(codePoints2, 0, 1);
 
-    RadarMap(int size) {
+    public RadarMap(int size) {
         super(size);
     }
 
