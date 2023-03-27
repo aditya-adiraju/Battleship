@@ -77,7 +77,7 @@ public class NewGameInitFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submit) {
             this.dispose();
-            new SelectionFrame(new Game(p1Name.getText().strip(), p2Name.getText().strip(), (int) size.getValue()));
+            new SelectionFrame(new Game(p1Name.getText(), p2Name.getText(), (int) size.getValue()));
         } else if (e.getSource() == exit) {
             System.exit(0);
         }
