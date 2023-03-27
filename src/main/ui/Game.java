@@ -13,7 +13,7 @@ import static model.Map.EMPTY_SQUARE;
 import static model.OceanMap.*;
 import static model.RadarMap.HIT_MISSILE;
 import static model.RadarMap.MISSED_MISSILE;
-import static ui.GameApp.GAME_PATH;
+import static ui.CLI.GAME_PATH;
 
 // CLASS-LEVEL COMMENT:
 // This represents a Game of Battleship with a size and 2 players

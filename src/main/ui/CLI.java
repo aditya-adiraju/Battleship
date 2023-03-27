@@ -1,12 +1,9 @@
 package ui;
 
-import model.BattleShip;
 import model.Score;
 import org.json.JSONArray;
-import org.json.JSONObject;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import persistence.Writable;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,17 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-// CLASS-LEVEL COMMENT: GameApp for user to interact with and start/load games
-public class GameApp {
+// CLASS-LEVEL COMMENT: CLI for user to interact with and start/load games
+public class CLI {
 
     public static final String GAME_PATH = "./data/game.json";
-    private static final String SCORE_PATH = "./data/scores.json";
+    public static final String SCORE_PATH = "./data/scores.json";
     Game game;
-    List<Score> scoreList = loadScores();
+    static List<Score> scoreList = loadScores();
 
 
     // EFFECTS: constructs an instance of a new Game App.
-    public GameApp() {
+    public CLI() {
         System.out.println("BATTLESHIP: THE GAME!!");
         playNewGame();
     }
@@ -59,7 +56,7 @@ public class GameApp {
     }
 
     // EFFECTS: increments a score of a given player
-    private void incrementScores(String name) {
+    public static void incrementScores(String name) {
         for (Score s : scoreList) {
             if (s.getName().equals(name)) {
                 s.setPoints(s.getPoints() + 1);
@@ -151,7 +148,7 @@ public class GameApp {
         }
     }
 
-    void saveScores() {
+    public static void saveScores() {
         JSONArray scoreListJson = new JSONArray();
         for (Score s : scoreList) {
             scoreListJson.put(s.toJson());
@@ -166,7 +163,7 @@ public class GameApp {
         }
     }
 
-    List<Score> loadScores() {
+    public static List<Score> loadScores() {
         JsonReader jsonReader = new JsonReader(SCORE_PATH);
         List<Score> scores;
         try {
