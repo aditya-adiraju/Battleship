@@ -2,8 +2,10 @@ package ui.templates;
 
 import model.BattleShip;
 import model.Player;
+import ui.CLI;
 import ui.Game;
 import ui.util.mappanels.TurnMapPanel;
+import ui.util.textpanels.PlayerInfoPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,7 +32,6 @@ public class TurnFrame implements ActionListener {
     public TurnFrame(Game game) {
         this.game = game;
         mapPanel = new TurnMapPanel(this);
-
         renderFrame();
     }
 
@@ -40,10 +41,21 @@ public class TurnFrame implements ActionListener {
     private void renderFrame() {
         JPanel controlPanel = renderControlPanel();
         gameFrame = new GameFrame();
+        gameFrame.setLayout(new GridLayout(1, 2));
+        PlayerInfoPanel pip = new PlayerInfoPanel(getActualPlayer(), true);
         gameFrame.add(controlPanel);
+        gameFrame.add(pip.renderPlayerPanel());
         gameFrame.setJMenuBar(menuBar);
         gameFrame.pack();
         gameFrame.setVisible(true);
+    }
+
+    private Player getActualPlayer() {
+        if (game.getCurrentPlayer() == 0) {
+            return game.getPlayer1();
+        } else {
+            return game.getPlayer2();
+        }
     }
 
 
@@ -93,8 +105,8 @@ public class TurnFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: ends the players turn moves to next player
     public void endTurn() {
+        passPlayer();
         game.changeCurrentPlayer();
-        this.gameFrame.dispose();
         renderFrame();
     }
 
@@ -103,13 +115,17 @@ public class TurnFrame implements ActionListener {
     // EFFECTS: check whether the game is over and ends turn if needed
     public void checkEndGame() {
         if (game.isOver() == 1) {
-            JOptionPane.showMessageDialog(null, "Player 1 Wins!",
-                    "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
-            this.gameFrame.dispose();
-        } else if (game.isOver() == 2) {
             JOptionPane.showMessageDialog(null, "Player 2 Wins!",
                     "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
             this.gameFrame.dispose();
+            CLI.incrementScores(game.getPlayer2().getUsername());
+            new HighScoresFrame();
+        } else if (game.isOver() == 2) {
+            JOptionPane.showMessageDialog(null, "Player 1 Wins!",
+                    "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
+            this.gameFrame.dispose();
+            CLI.incrementScores(game.getPlayer1().getUsername());
+            new HighScoresFrame();
         }
     }
 
@@ -120,23 +136,10 @@ public class TurnFrame implements ActionListener {
             System.exit(0);
         } else if (e.getSource() == newGameItem) {
             this.gameFrame.dispose();
-            game = initializeGame();
-            renderFrame();
+            new TitleScreenFrame();
         } else if (e.getSource() == exitItem) {
             System.exit(0);
         }
-    }
-
-    private Game initializeGame() {
-        Game game = new Game("Eve", "Fran", 5);
-
-        BattleShip s = new BattleShip(2);
-        s.rotate();
-        game.getPlayer1().placeShip(new BattleShip(2), 3, 2);
-        game.getPlayer2().placeShip(s,3, 4);
-        game.getPlayer1().launchAttack(game.getPlayer2(), 0, 1);
-        game.getPlayer2().launchAttack(game.getPlayer1(), 0, 0);
-        return game;
     }
 
     public Game getGame() {
@@ -145,5 +148,16 @@ public class TurnFrame implements ActionListener {
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+
+    private void passPlayer() {
+        this.gameFrame.dispose();
+        renderFrame();
+        JOptionPane.showMessageDialog(null, "Press OK and Pass device to other player",
+                "Player pass", JOptionPane.INFORMATION_MESSAGE);
+        this.gameFrame.dispose();
+        JOptionPane.showMessageDialog(null, "Press OK to continue",
+                "Player pass", JOptionPane.INFORMATION_MESSAGE);
     }
 }
