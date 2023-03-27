@@ -15,5 +15,6 @@ public class Icons {
     public static final ImageIcon redCircle = new ImageIcon(Icons.class.getResource("images/redCircle.png"));
     public static final ImageIcon pinkCircle = new ImageIcon(Icons.class.getResource("images/pinkCircle.png"));
     public static final ImageIcon userIcon = new ImageIcon(Icons.class.getResource("images/userIcon.png"));
+    public static final ImageIcon BattleShipIcon = new ImageIcon(Icons.class.getResource("images/Battleship.png"));
 
 }

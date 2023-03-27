@@ -1,7 +1,9 @@
 package ui.templates;
 
+import model.BattleShip;
 import persistence.JsonReader;
 import ui.Game;
+import ui.util.Icons;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +16,7 @@ import static ui.CLI.GAME_PATH;
 public class TitleScreenFrame extends JFrame implements ActionListener {
     JPanel buttonPanel;
     JPanel titlePanel;
+    JPanel imagePanel;
     JLabel heading;
     JLabel subheading;
 
@@ -25,18 +28,21 @@ public class TitleScreenFrame extends JFrame implements ActionListener {
     public TitleScreenFrame() {
         this.setTitle("BattleShip: The Game");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(new Dimension(600, 400));
-        this.setPreferredSize(new Dimension(600, 400));
+        this.setSize(new Dimension(600, 600));
+        this.setPreferredSize(new Dimension(600, 600));
         this.getContentPane().setBackground(Color.darkGray);
         renderFrame();
     }
 
     private void renderFrame() {
         renderTitlePanel();
+        renderImagePanel();
         renderButtonPanel();
         this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         this.add(Box.createVerticalGlue());
         this.add(titlePanel);
+        this.add(imagePanel);
+        this.add(Box.createRigidArea(new Dimension(0, 20)));
         this.add(buttonPanel);
         this.add(Box.createVerticalGlue());
         this.pack();
@@ -61,6 +67,14 @@ public class TitleScreenFrame extends JFrame implements ActionListener {
         titlePanel.setBackground(Color.darkGray);
         titlePanel.add(heading);
         titlePanel.add(subheading);
+    }
+
+    private void renderImagePanel() {
+        imagePanel = new JPanel();
+        imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.Y_AXIS));
+        JLabel label = new JLabel(Icons.BattleShipIcon);
+        label.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+        imagePanel.add(label);
     }
 
     private void renderButtonPanel() {
