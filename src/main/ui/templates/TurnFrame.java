@@ -12,6 +12,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static ui.templates.TitleScreenFrame.loadGame;
+
+// CLASS-LEVEL COMMENT: A frame that displays when playing the battle phase of the game
 public class TurnFrame implements ActionListener {
     Game game;
     TurnMapPanel mapPanel;
@@ -23,6 +26,7 @@ public class TurnFrame implements ActionListener {
     JMenu helpMenu;
     JMenuItem saveItem;
     JMenuItem newGameItem;
+    JMenuItem loadGameItem;
     JMenuItem exitItem;
 
 
@@ -50,6 +54,9 @@ public class TurnFrame implements ActionListener {
         gameFrame.setVisible(true);
     }
 
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS: produces the Player currently playing the game
     private Player getActualPlayer() {
         if (game.getCurrentPlayer() == 0) {
             return game.getPlayer1();
@@ -77,6 +84,9 @@ public class TurnFrame implements ActionListener {
         return enclosingPanel;
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: sets up all the options in the menu
     private void initializeMenu() {
         menuBar = new JMenuBar();
 
@@ -85,13 +95,17 @@ public class TurnFrame implements ActionListener {
         helpMenu = new JMenu("Help");
         saveItem = new JMenuItem("Save");
         newGameItem = new JMenuItem("New Game");
+        loadGameItem = new JMenuItem("Load Game");
         exitItem = new JMenuItem("Exit");
 
         newGameItem.addActionListener(this);
         saveItem.addActionListener(this);
         exitItem.addActionListener(this);
+        loadGameItem.addActionListener(this);
+
         fileMenu.add(saveItem);
         fileMenu.add(newGameItem);
+        fileMenu.add(loadGameItem);
         fileMenu.add(exitItem);
 
         menuBar.add(fileMenu);
@@ -129,6 +143,9 @@ public class TurnFrame implements ActionListener {
         }
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: routes correct method for each menu item and button pressed
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == saveItem) {
@@ -137,6 +154,9 @@ public class TurnFrame implements ActionListener {
         } else if (e.getSource() == newGameItem) {
             this.gameFrame.dispose();
             new TitleScreenFrame();
+        } else if (e.getSource() == loadGameItem) {
+            this.gameFrame.dispose();
+            new TurnFrame(loadGame());
         } else if (e.getSource() == exitItem) {
             System.exit(0);
         }
@@ -151,6 +171,9 @@ public class TurnFrame implements ActionListener {
     }
 
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: Creates a sequence to prevent cheating when passing a game
     private void passPlayer() {
         this.gameFrame.dispose();
         renderFrame();

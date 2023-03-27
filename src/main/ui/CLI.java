@@ -148,6 +148,9 @@ public class CLI {
         }
     }
 
+    // REQUIRES:
+    // MODIFIES: this, scores.json
+    // EFFECTS: saves current list of scores in scores.json
     public static void saveScores() {
         JSONArray scoreListJson = new JSONArray();
         for (Score s : scoreList) {
@@ -163,6 +166,9 @@ public class CLI {
         }
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: returns a list of scores
     public static List<Score> loadScores() {
         JsonReader jsonReader = new JsonReader(SCORE_PATH);
         List<Score> scores;

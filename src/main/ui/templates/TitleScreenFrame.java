@@ -13,6 +13,7 @@ import java.io.IOException;
 
 import static ui.CLI.GAME_PATH;
 
+// CLASS-LEVEL COMMENT: the title screen of the game
 public class TitleScreenFrame extends JFrame implements ActionListener {
     JPanel buttonPanel;
     JPanel titlePanel;
@@ -25,6 +26,9 @@ public class TitleScreenFrame extends JFrame implements ActionListener {
     JButton showScores;
     JButton exitGame;
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: Creates a window with the title
     public TitleScreenFrame() {
         this.setTitle("BattleShip: The Game");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,6 +38,9 @@ public class TitleScreenFrame extends JFrame implements ActionListener {
         renderFrame();
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: displays the created window with buttons
     private void renderFrame() {
         renderTitlePanel();
         renderImagePanel();
@@ -49,6 +56,9 @@ public class TitleScreenFrame extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: adds the formatted title to the title window
     private void renderTitlePanel() {
         titlePanel = new JPanel();
         titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
@@ -69,6 +79,9 @@ public class TitleScreenFrame extends JFrame implements ActionListener {
         titlePanel.add(subheading);
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: adds an image to the window
     private void renderImagePanel() {
         imagePanel = new JPanel();
         imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.Y_AXIS));
@@ -77,6 +90,9 @@ public class TitleScreenFrame extends JFrame implements ActionListener {
         imagePanel.add(label);
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: adds all the buttons to the window
     private void renderButtonPanel() {
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
@@ -98,7 +114,9 @@ public class TitleScreenFrame extends JFrame implements ActionListener {
         buttonPanel.add(exitGame);
     }
 
-
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: executes correct method for each button pressed
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == newGame) {
@@ -115,8 +133,9 @@ public class TitleScreenFrame extends JFrame implements ActionListener {
         }
     }
 
+
     // EFFECTS: loads a saved game from game.json
-    Game loadGame() {
+    static Game loadGame() {
         JsonReader jsonReader = new JsonReader(GAME_PATH);
         try {
             return jsonReader.readGame();

@@ -11,9 +11,13 @@ import java.net.URL;
 
 import static ui.CLI.GAME_PATH;
 
+// CLASS-LEVEL COMMENT: GUI for the game
 public class GUI {
 
-    public GUI() throws IOException {
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS: renders the GUI of the game;
+    public GUI() {
         new TitleScreenFrame();
     }
 }

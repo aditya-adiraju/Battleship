@@ -319,6 +319,9 @@ public class Game implements Writable {
         return size;
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: returns an integer corresponding to losing player or 0 if ongoing
     public int isOver() {
         if (player1.isLose()) {
             return 1;
@@ -337,6 +340,9 @@ public class Game implements Writable {
         return player2;
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: changes the player of the game
     public void changeCurrentPlayer() {
         currentPlayer = (currentPlayer + 1) % 2;
     }
