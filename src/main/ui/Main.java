@@ -6,11 +6,11 @@ import java.io.IOException;
 
 // CLASS-LEVEL COMMENT: represents an instance of a new program or game of battleship
 public class Main {
+
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS: runs the program
     public static void main(String[] args) {
-        try {
-            new GUI();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        new GUI();
     }
 }

@@ -3,6 +3,7 @@ package ui.templates;
 import javax.swing.*;
 import java.awt.*;
 
+// CLASS-LEVEL COMMENT: Button that holds x, y coordinates of itself
 public class MapButton extends JButton {
     int[] coordinates;
 

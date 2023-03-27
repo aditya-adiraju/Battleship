@@ -13,11 +13,15 @@ import java.awt.event.ActionListener;
 
 import static ui.util.Icons.*;
 
+// CLASS-LEVEL COMMENT: displays a single radar or ocean map during the battle phase
 public class TurnMapPanel {
 
     TurnFrame parentFrame;
     JPanel enclosingPanel;
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: Creates a panel of clickable buttons for a radar map, un-clickable ocean map with coordinates
     public TurnMapPanel(TurnFrame parentFrame) {
         this.parentFrame = parentFrame;
     }
@@ -30,6 +34,9 @@ public class TurnMapPanel {
         this.parentFrame = parentFrame;
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: displays and adds buttons to the map created
     public JPanel renderMap(String[][] board, Boolean disabled) {
         enclosingPanel = new JPanel();
         int size = board.length;
@@ -44,6 +51,9 @@ public class TurnMapPanel {
         return enclosingPanel;
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: evaluates how to set icons for each button
     void parseButton(String[][] board, int i, int j, Boolean disabled, MapButton btn) {
         String target = board[i][j];
         if (target.equals(Map.EMPTY_SQUARE)) {
@@ -67,13 +77,16 @@ public class TurnMapPanel {
         }
     }
 
+    // EFFECTS: sets a button with an icon that is disabled
     void setDisabledButton(MapButton btn, ImageIcon imageIcon) {
         btn.setDisabledIcon(imageIcon);
         btn.setIcon(imageIcon);
         btn.setEnabled(false);
     }
 
-
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: creates a button with x and y information encoded in it
     MapButton addButton(String[][] board, int i, int j, Boolean disabled) {
         MapButton btn = new MapButton(j, i);
         btn.setFocusable(false);
@@ -83,10 +96,13 @@ public class TurnMapPanel {
         return btn;
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: routes button action to perform appropriate actions
     ActionListener getActionListener(MapButton btn) {
         return e -> {
             Game game = parentFrame.getGame();
-            Boolean successful;
+            boolean successful;
             int x = btn.getXCoordinate();
             int y = btn.getYCoordinate();
             if (game.getCurrentPlayer() == 0) {

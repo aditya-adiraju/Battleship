@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+// CLASS-LEVEL COMMENT: Frame that displays high scores
 public class HighScoresFrame extends JFrame implements ActionListener {
     JPanel scoresPanel;
     JPanel buttonPanel;
@@ -17,6 +18,9 @@ public class HighScoresFrame extends JFrame implements ActionListener {
     JButton exit;
     java.util.List<Score> scoreList;
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: creates a High Scores window to display scores
     public HighScoresFrame() {
         this.scoreList = CLI.loadScores();
         this.setTitle("High Scores");
@@ -26,6 +30,9 @@ public class HighScoresFrame extends JFrame implements ActionListener {
         renderFrame();
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: adds scores and buttons to window and displays it
     private void renderFrame() {
         JPanel enclosingPanel = new JPanel();
         renderButtonPanel();
@@ -41,6 +48,9 @@ public class HighScoresFrame extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: adds each Score to a Panel showing the scores
     public void renderScoresPanel() {
         scoresPanel = new JPanel();
         scoresPanel.setBackground(Color.darkGray);
@@ -64,6 +74,9 @@ public class HighScoresFrame extends JFrame implements ActionListener {
         scoresPanel.add(Box.createVerticalGlue());
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: adds Buttons to a panel with buttons
     private void renderButtonPanel() {
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
@@ -77,6 +90,9 @@ public class HighScoresFrame extends JFrame implements ActionListener {
         buttonPanel.add(newGame);
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: executes correct methods based on button pressed
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == exit) {

@@ -12,6 +12,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+// CLASS-LEVEL COMMENT: Frame that displays when the players are assigning ships to their maps
 public class SelectionFrame implements ActionListener {
     Game game;
     JButton rotateButton;
@@ -23,6 +25,9 @@ public class SelectionFrame implements ActionListener {
     BattleShip displayShip = new BattleShip(Game.shipSizes[index % Game.shipSizes.length]);
 
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: Creates a window for the player to add ships to their board
     public SelectionFrame(Game game) {
         this.game = game;
         this.index++;
@@ -32,8 +37,8 @@ public class SelectionFrame implements ActionListener {
     }
 
     // REQUIRES:
-    // MODIFIES:
-    // EFFECTS: renders the final frame to be displayed
+    // MODIFIES: this
+    // EFFECTS: displays the final window with all the visual components added to it
     private void renderFrame() {
         JPanel oceanDisplay = renderOceanDisplay();
         gameFrame = new GameFrame();
@@ -45,6 +50,9 @@ public class SelectionFrame implements ActionListener {
         gameFrame.setVisible(true);
     }
 
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS: produces the Player currently playing the game
     private Player getActualPlayer() {
         if (game.getCurrentPlayer() == 0) {
             return game.getPlayer1();
@@ -53,6 +61,9 @@ public class SelectionFrame implements ActionListener {
         }
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: creates a panel with a small ship that is to be added to player's map
     private JPanel renderShipDisplay() {
         JPanel enclosingPanel = new JPanel();
         JPanel rotatePanel = createRotatePanel();
@@ -67,6 +78,9 @@ public class SelectionFrame implements ActionListener {
         return enclosingPanel;
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: Creates a space to hold the rotate button
     private JPanel createRotatePanel() {
         JPanel rotatePanel = new JPanel();
         rotatePanel.setLayout(new BoxLayout(rotatePanel, BoxLayout.Y_AXIS));
@@ -79,6 +93,9 @@ public class SelectionFrame implements ActionListener {
         return rotatePanel;
     }
 
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS: Creates a panel that displays the user's ocean map
     private JPanel renderOceanDisplay() {
         Player player;
         JPanel enclosingPanel = new JPanel();
@@ -103,6 +120,9 @@ public class SelectionFrame implements ActionListener {
         this.game = game;
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: moves on to the next ship, and advances game state if needed
     public void nextShip() {
         int maxShips = game.getPlayer1().getMaximumShips();
         int p1CurrentShips = game.getPlayer1().getShips().size();
@@ -125,6 +145,9 @@ public class SelectionFrame implements ActionListener {
         }
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: reassigns ships with the current index
     private void setShips() {
         this.currentShip = new BattleShip(Game.shipSizes[index % Game.shipSizes.length]);
         this.displayShip = new BattleShip(Game.shipSizes[index % Game.shipSizes.length]);
@@ -132,6 +155,9 @@ public class SelectionFrame implements ActionListener {
         this.mapPanel.setCurrentShip(currentShip);
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: Creates a sequence to prevent cheating when passing a game
     private void passPlayer() {
         this.gameFrame.dispose();
         renderFrame();
@@ -142,6 +168,10 @@ public class SelectionFrame implements ActionListener {
                 "Player pass", JOptionPane.INFORMATION_MESSAGE);
     }
 
+
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: executes correct methods for the buttons pressed
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == rotateButton) {

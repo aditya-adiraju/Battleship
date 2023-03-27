@@ -10,11 +10,15 @@ import javax.swing.border.Border;
 import java.awt.*;
 import static ui.util.Icons.*;
 
+// CLASS-LEVEL COMMENT: Panel that displays a ship to be placed during the selection phase
 public class ShipMapPanel {
 
     SelectionFrame parentFrame;
     JPanel shipPanel;
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: creates a panel that holds the ship to be placed on a player's map
     public ShipMapPanel(SelectionFrame parentFrame) {
         this.parentFrame = parentFrame;
     }
@@ -27,6 +31,9 @@ public class ShipMapPanel {
         this.parentFrame = parentFrame;
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: adds all buttons to the panel
     public JPanel renderMap(String[][] board) {
         shipPanel = new JPanel();
         int size = board.length;
@@ -41,6 +48,9 @@ public class ShipMapPanel {
         return shipPanel;
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: evaluates how to set icons for each button
     void parseButton(String[][] board, int i, int j, MapButton btn) {
         String target = board[i][j];
         if (target.equals(Map.EMPTY_SQUARE)) {
@@ -54,6 +64,9 @@ public class ShipMapPanel {
         }
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: creates a button with x and y information encoded in it
     MapButton addButton(String[][] board, int i, int j) {
         MapButton btn = new MapButton(j, i);
         btn.setFocusable(false);
@@ -62,6 +75,7 @@ public class ShipMapPanel {
         return btn;
     }
 
+    // EFFECTS: sets a button with an icon that is disabled
     void setDisabledButton(MapButton btn, ImageIcon imageIcon) {
         btn.setDisabledIcon(imageIcon);
         btn.setIcon(imageIcon);

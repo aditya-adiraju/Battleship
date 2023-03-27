@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// CLASS-LEVEL COMMENT: A form frame that takes in the parameters of the game
 public class NewGameInitFrame extends JFrame implements ActionListener {
     JPanel formPanel;
     JPanel buttonPanel;
@@ -20,6 +21,9 @@ public class NewGameInitFrame extends JFrame implements ActionListener {
     JButton submit;
     JButton exit;
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: Creates a window for user to input game parameters
     public NewGameInitFrame() {
         this.setTitle("Start new Game");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,6 +32,9 @@ public class NewGameInitFrame extends JFrame implements ActionListener {
         renderFrame();
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: adds components and displays parts on the window
     private void renderFrame() {
         renderFormPanel();
         renderButtonPanel();
@@ -40,6 +47,9 @@ public class NewGameInitFrame extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: adds text fields and inputs to a panel with the form
     private void renderFormPanel() {
         formPanel = new JPanel();
         formPanel.setLayout(new GridLayout(3, 2));
@@ -60,6 +70,9 @@ public class NewGameInitFrame extends JFrame implements ActionListener {
         formPanel.add(size);
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: adds buttons to a panel with the buttons
     private void renderButtonPanel() {
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
@@ -73,6 +86,9 @@ public class NewGameInitFrame extends JFrame implements ActionListener {
         buttonPanel.add(exit);
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: executes correct methods based on button pressed
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submit) {

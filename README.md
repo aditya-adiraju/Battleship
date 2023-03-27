@@ -26,3 +26,19 @@ As a user, I want to be able to:
 - save and load a tally of my wins against others
 - save the game against an opponent (Battleship is a long game that can take over 30 minutes)
 - load a pre-existing game of Battleship
+
+# Instructions for Grader
+
+- You can generate the first required action related to adding Xs to a Y by selecting new Game on the title screen, 
+  pressing the button labelled "submit", pressing on the button map above to place a ship displayed below onto the map. 
+- You can generate the second required action related to adding Xs to a Y by going to a Battle state by loading a game, 
+  or initializing a game with "start new Game", pressing "submit", assigning Battleships for each player.
+  Now,you can select any coordinate to launch a missile and add it to your radar and a missile on your opponent's ocean 
+  map. Once all X's on the opponents board is eliminated, the ship is removed, and the game ends.
+- You can locate my visual component by starting the game on the title screen or after starting a new game once you've 
+  entered the necessary info to start the game
+- You can save the state of my application by selecting the save file option when you're in the Battle turn in the 
+  game. To reach this state, select load game in the title screen OR start new game, initialize game parameters, 
+  and place ships for each player. 
+- You can reload the state of my application by selecting the load option from the file menu during a Battle Turn. 
+  Follow the instructions above to reach a battle Turn.
