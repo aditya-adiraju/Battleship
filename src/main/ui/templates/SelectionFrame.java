@@ -20,6 +20,7 @@ public class SelectionFrame implements ActionListener {
     GameFrame gameFrame;
     int index = 0;
     BattleShip currentShip = new BattleShip(Game.shipSizes[index % Game.shipSizes.length]);
+    BattleShip displayShip = new BattleShip(Game.shipSizes[index % Game.shipSizes.length]);
 
 
     public SelectionFrame(Game game) {
@@ -58,7 +59,8 @@ public class SelectionFrame implements ActionListener {
         int refactorSize = 2;
         enclosingPanel.setLayout(new GridLayout(refactorSize, refactorSize));
         shipPanel = new ShipMapPanel(this);
-        enclosingPanel.add(shipPanel.renderMap(currentShip.getShipBoard()));
+
+        enclosingPanel.add(shipPanel.renderMap(displayShip.getShipBoard()));
         enclosingPanel.add(rotatePanel);
         enclosingPanel.add(new JPanel());
         enclosingPanel.add(new JPanel());
@@ -72,7 +74,7 @@ public class SelectionFrame implements ActionListener {
         rotateButton.addActionListener(this);
         rotatePanel.add(Box.createVerticalGlue());
         rotatePanel.add(rotateButton);
-        rotateButton.setAlignmentX(rotatePanel.CENTER_ALIGNMENT);
+        rotateButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         rotatePanel.add(Box.createVerticalGlue());
         return rotatePanel;
     }
@@ -92,7 +94,7 @@ public class SelectionFrame implements ActionListener {
         enclosingPanel.add(renderShipDisplay());
         return enclosingPanel;
     }
-    
+
     public Game getGame() {
         return game;
     }
@@ -110,9 +112,7 @@ public class SelectionFrame implements ActionListener {
             passPlayer();
             game.changeCurrentPlayer();
             this.index = 0;
-            this.currentShip = new BattleShip(Game.shipSizes[index % Game.shipSizes.length]);
-            this.index++;
-            this.mapPanel.setCurrentShip(currentShip);
+            setShips();
             renderFrame();
         } else if (game.getCurrentPlayer() == 1 && maxShips <= p2CurrentShips) {
             passPlayer();
@@ -120,12 +120,16 @@ public class SelectionFrame implements ActionListener {
             game.changeCurrentPlayer();
             new TurnFrame(game);
         } else {
-            this.currentShip = new BattleShip(Game.shipSizes[index % Game.shipSizes.length]);
-            this.index++;
-            this.mapPanel.setCurrentShip(currentShip);
+            setShips();
             renderFrame();
         }
+    }
 
+    private void setShips() {
+        this.currentShip = new BattleShip(Game.shipSizes[index % Game.shipSizes.length]);
+        this.displayShip = new BattleShip(Game.shipSizes[index % Game.shipSizes.length]);
+        this.index++;
+        this.mapPanel.setCurrentShip(currentShip);
     }
 
     private void passPlayer() {
@@ -142,6 +146,7 @@ public class SelectionFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == rotateButton) {
             currentShip.rotate();
+            displayShip.rotate();
             this.gameFrame.dispose();
             renderFrame();
         }
