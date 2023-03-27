@@ -133,11 +133,13 @@ public class TurnFrame implements ActionListener {
                     "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
             this.gameFrame.dispose();
             CLI.incrementScores(game.getPlayer2().getUsername());
+            CLI.saveScores();
             new HighScoresFrame();
         } else if (game.isOver() == 2) {
             JOptionPane.showMessageDialog(null, "Player 1 Wins!",
                     "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
             this.gameFrame.dispose();
+            CLI.saveScores();
             CLI.incrementScores(game.getPlayer1().getUsername());
             new HighScoresFrame();
         }
