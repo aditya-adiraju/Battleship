@@ -2,6 +2,7 @@ package ui.templates;
 
 import model.BattleShip;
 import model.Player;
+import ui.CLI;
 import ui.Game;
 import ui.util.mappanels.TurnMapPanel;
 import ui.util.textpanels.PlayerInfoPanel;
@@ -117,10 +118,14 @@ public class TurnFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "Player 2 Wins!",
                     "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
             this.gameFrame.dispose();
+            CLI.incrementScores(game.getPlayer2().getUsername());
+            new HighScoresFrame();
         } else if (game.isOver() == 2) {
             JOptionPane.showMessageDialog(null, "Player 1 Wins!",
                     "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
             this.gameFrame.dispose();
+            CLI.incrementScores(game.getPlayer1().getUsername());
+            new HighScoresFrame();
         }
     }
 
@@ -131,23 +136,10 @@ public class TurnFrame implements ActionListener {
             System.exit(0);
         } else if (e.getSource() == newGameItem) {
             this.gameFrame.dispose();
-            game = initializeGame();
-            renderFrame();
+            new TitleScreenFrame();
         } else if (e.getSource() == exitItem) {
             System.exit(0);
         }
-    }
-
-    private Game initializeGame() {
-        Game game = new Game("Eve", "Fran", 5);
-
-        BattleShip s = new BattleShip(2);
-        s.rotate();
-        game.getPlayer1().placeShip(new BattleShip(2), 3, 2);
-        game.getPlayer2().placeShip(s,3, 4);
-        game.getPlayer1().launchAttack(game.getPlayer2(), 0, 1);
-        game.getPlayer2().launchAttack(game.getPlayer1(), 0, 0);
-        return game;
     }
 
     public Game getGame() {
