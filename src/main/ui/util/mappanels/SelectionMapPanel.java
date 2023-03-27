@@ -11,20 +11,11 @@ import ui.util.Icons;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import static ui.util.Icons.*;
 
 public class SelectionMapPanel {
-
-    static ImageIcon greenSquare = new ImageIcon(Icons.class.getResource("images/greenSquare.png"));
-    static ImageIcon graySquare = new ImageIcon(Icons.class.getResource("images/graySquare.png"));
-    static ImageIcon cyanSquare = new ImageIcon(Icons.class.getResource("images/cyanSquare.png"));
-    static ImageIcon redSquare = new ImageIcon(Icons.class.getResource("images/redSquare.png"));
-    static ImageIcon yellowSquare = new ImageIcon(Icons.class.getResource("images/yellowSquare.png"));
-    static ImageIcon blueSquare = new ImageIcon(Icons.class.getResource("images/blueSquare.png"));
-    static ImageIcon greenCircle = new ImageIcon(Icons.class.getResource("images/greenCircle.png"));
-    static ImageIcon redCircle = new ImageIcon(Icons.class.getResource("images/redCircle.png"));
-    static ImageIcon pinkCircle = new ImageIcon(Icons.class.getResource("images/pinkCircle.png"));
-
     SelectionFrame parentFrame;
     JPanel enclosingPanel;
     BattleShip currentShip;
@@ -92,7 +83,6 @@ public class SelectionMapPanel {
         btn.setIcon(imageIcon);
         btn.setEnabled(false);
     }
-
 
     ActionListener getActionListener(MapButton btn) {
         return e -> {

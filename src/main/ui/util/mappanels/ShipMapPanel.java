@@ -4,24 +4,16 @@ import model.Map;
 import model.OceanMap;
 import ui.templates.MapButton;
 import ui.templates.SelectionFrame;
-import ui.util.Icons;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
+import static ui.util.Icons.*;
 
 public class ShipMapPanel {
-    static ImageIcon greenSquare = new ImageIcon(Icons.class.getResource("images/greenSquare.png"));
-    static ImageIcon graySquare = new ImageIcon(Icons.class.getResource("images/graySquare.png"));
-    static ImageIcon cyanSquare = new ImageIcon(Icons.class.getResource("images/cyanSquare.png"));
-    static ImageIcon redSquare = new ImageIcon(Icons.class.getResource("images/redSquare.png"));
-    static ImageIcon yellowSquare = new ImageIcon(Icons.class.getResource("images/yellowSquare.png"));
-    static ImageIcon blueSquare = new ImageIcon(Icons.class.getResource("images/blueSquare.png"));
-    static ImageIcon greenCircle = new ImageIcon(Icons.class.getResource("images/greenCircle.png"));
-    static ImageIcon redCircle = new ImageIcon(Icons.class.getResource("images/redCircle.png"));
-    static ImageIcon pinkCircle = new ImageIcon(Icons.class.getResource("images/pinkCircle.png"));
 
     SelectionFrame parentFrame;
-    JPanel enclosingPanel;
+    JPanel shipPanel;
 
     public ShipMapPanel(SelectionFrame parentFrame) {
         this.parentFrame = parentFrame;
@@ -36,17 +28,17 @@ public class ShipMapPanel {
     }
 
     public JPanel renderMap(String[][] board) {
-        enclosingPanel = new JPanel();
+        shipPanel = new JPanel();
         int size = board.length;
         int gap = 5;
-        enclosingPanel.setLayout(new GridLayout(size, size, gap, gap));
+        shipPanel.setLayout(new GridLayout(size, size, gap, gap));
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 MapButton btn = addButton(board, i, j);
-                enclosingPanel.add(btn);
+                shipPanel.add(btn);
             }
         }
-        return enclosingPanel;
+        return shipPanel;
     }
 
     void parseButton(String[][] board, int i, int j, MapButton btn) {

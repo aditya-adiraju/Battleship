@@ -4,6 +4,7 @@ import model.BattleShip;
 import persistence.JsonReader;
 import ui.templates.SelectionFrame;
 import ui.templates.TurnFrame;
+import ui.util.textpanels.PlayerInfoPanel;
 
 import java.io.IOException;
 

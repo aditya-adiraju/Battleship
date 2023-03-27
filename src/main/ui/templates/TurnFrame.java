@@ -4,6 +4,7 @@ import model.BattleShip;
 import model.Player;
 import ui.Game;
 import ui.util.mappanels.TurnMapPanel;
+import ui.util.textpanels.PlayerInfoPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,7 +31,6 @@ public class TurnFrame implements ActionListener {
     public TurnFrame(Game game) {
         this.game = game;
         mapPanel = new TurnMapPanel(this);
-
         renderFrame();
     }
 
@@ -40,10 +40,21 @@ public class TurnFrame implements ActionListener {
     private void renderFrame() {
         JPanel controlPanel = renderControlPanel();
         gameFrame = new GameFrame();
+        gameFrame.setLayout(new GridLayout(1, 2));
+        PlayerInfoPanel pip = new PlayerInfoPanel(getActualPlayer(), true);
         gameFrame.add(controlPanel);
+        gameFrame.add(pip.renderPlayerPanel());
         gameFrame.setJMenuBar(menuBar);
         gameFrame.pack();
         gameFrame.setVisible(true);
+    }
+
+    private Player getActualPlayer() {
+        if (game.getCurrentPlayer() == 0) {
+            return game.getPlayer1();
+        } else {
+            return game.getPlayer2();
+        }
     }
 
 
@@ -93,8 +104,8 @@ public class TurnFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: ends the players turn moves to next player
     public void endTurn() {
+        passPlayer();
         game.changeCurrentPlayer();
-        this.gameFrame.dispose();
         renderFrame();
     }
 
@@ -145,5 +156,16 @@ public class TurnFrame implements ActionListener {
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+
+    private void passPlayer() {
+        this.gameFrame.dispose();
+        renderFrame();
+        JOptionPane.showMessageDialog(null, "Press OK and Pass device to other player",
+                "Player pass", JOptionPane.INFORMATION_MESSAGE);
+        this.gameFrame.dispose();
+        JOptionPane.showMessageDialog(null, "Press OK to continue",
+                "Player pass", JOptionPane.INFORMATION_MESSAGE);
     }
 }
