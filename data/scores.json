@@ -14,5 +14,9 @@
     {
         "name": "Alice",
         "points": 2
+    },
+    {
+        "name": "P2",
+        "points": 1
     }
 ]}
