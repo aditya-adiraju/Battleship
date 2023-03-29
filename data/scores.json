@@ -18,5 +18,9 @@
     {
         "name": "P2",
         "points": 1
+    },
+    {
+        "name": "Bob",
+        "points": 3
     }
 ]}
