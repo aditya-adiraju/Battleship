@@ -152,12 +152,16 @@ public class TurnFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == saveItem) {
             game.saveGame();
+            JOptionPane.showMessageDialog(null, "Game saved successfully.",
+                    "Save Complete", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         } else if (e.getSource() == newGameItem) {
             this.gameFrame.dispose();
             new TitleScreenFrame();
         } else if (e.getSource() == loadGameItem) {
             this.gameFrame.dispose();
+            JOptionPane.showMessageDialog(null, "Game loaded successfully",
+                    "Game loaded!", JOptionPane.INFORMATION_MESSAGE);
             new TurnFrame(loadGame());
         } else if (e.getSource() == exitItem) {
             System.exit(0);

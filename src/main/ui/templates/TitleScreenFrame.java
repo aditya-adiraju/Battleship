@@ -124,6 +124,8 @@ public class TitleScreenFrame extends JFrame implements ActionListener {
             new NewGameInitFrame();
         } else if (e.getSource() == loadGame) {
             this.dispose();
+            JOptionPane.showMessageDialog(null, "Game loaded successfully",
+                    "Game loaded!", JOptionPane.INFORMATION_MESSAGE);
             new TurnFrame(loadGame());
         } else if (e.getSource() == showScores) {
             this.dispose();
