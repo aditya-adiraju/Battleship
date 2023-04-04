@@ -128,14 +128,15 @@ public class TurnFrame implements ActionListener {
     // MODIFIES:
     // EFFECTS: check whether the game is over and ends turn if needed
     public void checkEndGame() {
-        if (game.isOver() == 1) {
+        int gameResult = game.isOver();
+        if (gameResult == 1) {
             JOptionPane.showMessageDialog(null, "Player 2 Wins!",
                     "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
             this.gameFrame.dispose();
             CLI.incrementScores(game.getPlayer2().getUsername());
             CLI.saveScores();
             new HighScoresFrame();
-        } else if (game.isOver() == 2) {
+        } else if (gameResult == 2) {
             JOptionPane.showMessageDialog(null, "Player 1 Wins!",
                     "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
             this.gameFrame.dispose();

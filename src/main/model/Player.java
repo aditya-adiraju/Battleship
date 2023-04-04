@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.lang.reflect.Array;
 import java.nio.file.Watchable;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +83,14 @@ public class Player implements Writable {
     // RESOURCE USED:
     // https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html#removeIf-java.util.function.Predicate-
     private void removeSunkenShips() {
-        ships.removeIf(BattleShip::isEmpty);
+        ArrayList<BattleShip> toRemove = new ArrayList<>();
+        for (BattleShip ship : ships) {
+            if (ship.isEmpty()) {
+                toRemove.add(ship);
+                EventLog.getInstance().logEvent(new Event(username + "'s ship was removed"));
+            }
+        }
+        ships.removeAll(toRemove);
     }
 
 
@@ -92,6 +100,8 @@ public class Player implements Writable {
     public boolean placeShip(BattleShip bs, int x, int y) {
         if (oceanMap.placeShip(bs, x, y)) {
             ships.add(bs);
+            EventLog.getInstance().logEvent(new Event("A ship was placed on " + username + "'s board at x:"
+                    + x + " y:" + y));
             return true;
         } else {
             return false;
@@ -101,7 +111,13 @@ public class Player implements Writable {
     // MODIFIES: this, opp
     // EFFECTS: launches a missile at a given opponent's board
     public boolean launchAttack(Player opp, int x, int y) {
-        return radarMap.launchMissile(opp, x, y);
+        if (radarMap.launchMissile(opp, x, y)) {
+            EventLog.getInstance().logEvent(new Event(username + "'s missile successfully struck "
+                    + opp.getUsername() + "'s board at x:" + x + " y:" + y));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // EFFECTS: returns the player's username
@@ -111,7 +127,12 @@ public class Player implements Writable {
 
     // EFFECTS: checks whether any ships are remaining
     public boolean isLose() {
-        return ships.isEmpty();
+        if (ships.isEmpty()) {
+            EventLog.getInstance().logEvent(new Event(username + " Lost. Game Over."));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // EFFECTS: returns a json object version of a player
@@ -126,7 +147,7 @@ public class Player implements Writable {
         json.put("oceanMap", oceanMap.toJson());
         json.put("radarMap", radarMap.toJson());
         json.put("ships", shipsJson);
-
+        EventLog.getInstance().logEvent(new Event(username + "'s game state saved"));
         return json;
     }
 }

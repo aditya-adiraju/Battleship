@@ -7,6 +7,7 @@ import persistence.JsonWriter;
 import persistence.Writable;
 
 import java.io.FileNotFoundException;
+import java.util.Observable;
 import java.util.Scanner;
 
 import static model.Map.EMPTY_SQUARE;

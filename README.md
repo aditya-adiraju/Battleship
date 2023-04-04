@@ -42,3 +42,26 @@ As a user, I want to be able to:
   and place ships for each player. 
 - You can reload the state of my application by selecting the load option from the file menu during a Battle Turn. 
   Follow the instructions above to reach a battle Turn.
+
+# Phase 4: Task 2
+
+Examples of events in project including those that trigger on:
+- placing ships on specific coordinates on a player's board
+- successfully striking a missile on opponent map.
+- sinking an opponent's battleship and removing it from their board.
+- a game over.
+- saving score data
+- saving player data
+
+# Phase 4: Task 3
+
+Upon examining the diagram, it is apparent that substantial refactoring is required to make the design more effective.
+Especially, the number of associations with the Game class should be reduced to a single point from the rest of the GUI.
+Additionally, the Game class should probably be refactored to use the Singleton design pattern, as well as the Observer 
+Pattern to reduce the extreme coupling with UI classes. 
+
+In the GUI classes, there are many bi-drectional relationships between panels and frames that increases coupling. This 
+should be addressed and reduced in future designs through the use of static variables or singleton patterns on the Game 
+object. Furthermore, there is a large amount of code duplication between the classes that could be avoided with 
+appropriate supertyping with interfaces and superclasses. Finally, the model class has made good use of the 
+design principles and has relatively low coupling, with high cohesion. 

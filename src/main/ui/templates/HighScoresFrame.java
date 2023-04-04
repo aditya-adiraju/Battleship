@@ -1,5 +1,6 @@
 package ui.templates;
 
+import model.EventLog;
 import model.Score;
 import ui.CLI;
 import ui.Game;
