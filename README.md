@@ -42,3 +42,13 @@ As a user, I want to be able to:
   and place ships for each player. 
 - You can reload the state of my application by selecting the load option from the file menu during a Battle Turn. 
   Follow the instructions above to reach a battle Turn.
+
+# Phase 4: Task 2
+
+Examples of events in project including those that trigger on:
+- placing ships on specific coordinates on a player's board
+- successfully striking a missile on opponent map.
+- sinking an opponent's battleship and removing it from their board.
+- a game over.
+- saving score data
+- saving player data
