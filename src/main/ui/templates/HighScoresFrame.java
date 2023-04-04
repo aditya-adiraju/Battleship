@@ -18,7 +18,6 @@ public class HighScoresFrame extends JFrame implements ActionListener {
     JButton newGame;
     JButton exit;
     java.util.List<Score> scoreList;
-    EventLog eventLog = EventLog.getInstance();
 
     // REQUIRES:
     // MODIFIES: this
