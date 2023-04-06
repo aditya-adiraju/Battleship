@@ -1,14 +1,18 @@
 package ui.templates;
 
+import model.Event;
+import model.EventLog;
 import ui.Game;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 // CLASS-LEVEL COMMENT: A form frame that takes in the parameters of the game
-public class NewGameInitFrame extends JFrame implements ActionListener {
+public class NewGameInitFrame extends JFrame implements ActionListener, WindowListener {
     JPanel formPanel;
     JPanel buttonPanel;
     JLabel p1Label;
@@ -95,7 +99,49 @@ public class NewGameInitFrame extends JFrame implements ActionListener {
             this.dispose();
             new SelectionFrame(new Game(p1Name.getText(), p2Name.getText(), (int) size.getValue()));
         } else if (e.getSource() == exit) {
+            EventLog log = EventLog.getInstance();
+            for (Event event : log) {
+                System.out.println(event.toString());
+            }
             System.exit(0);
         }
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        EventLog log = EventLog.getInstance();
+        for (Event event : log) {
+            System.out.println(event.toString());
+        }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
     }
 }

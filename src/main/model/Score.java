@@ -39,7 +39,7 @@ public class Score implements Writable {
         JSONObject json = new JSONObject();
         json.put("name", name);
         json.put("points", points);
-        EventLog.getInstance().logEvent(new Event("Scores saved."));
+        EventLog.getInstance().logEvent(new Event(name + "'s Score saved."));
         return json;
     }
 

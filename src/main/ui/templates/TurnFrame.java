@@ -1,6 +1,8 @@
 package ui.templates;
 
 import model.BattleShip;
+import model.Event;
+import model.EventLog;
 import model.Player;
 import ui.CLI;
 import ui.Game;
@@ -155,7 +157,6 @@ public class TurnFrame implements ActionListener {
             game.saveGame();
             JOptionPane.showMessageDialog(null, "Game saved successfully.",
                     "Save Complete", JOptionPane.INFORMATION_MESSAGE);
-            System.exit(0);
         } else if (e.getSource() == newGameItem) {
             this.gameFrame.dispose();
             new TitleScreenFrame();
@@ -165,6 +166,10 @@ public class TurnFrame implements ActionListener {
                     "Game loaded!", JOptionPane.INFORMATION_MESSAGE);
             new TurnFrame(loadGame());
         } else if (e.getSource() == exitItem) {
+            EventLog log = EventLog.getInstance();
+            for (Event event : log) {
+                System.out.println(event.toString());
+            }
             System.exit(0);
         }
     }

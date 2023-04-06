@@ -1,5 +1,6 @@
 package ui.templates;
 
+import model.Event;
 import model.EventLog;
 import model.Score;
 import ui.CLI;
@@ -9,10 +10,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.List;
 
 // CLASS-LEVEL COMMENT: Frame that displays high scores
-public class HighScoresFrame extends JFrame implements ActionListener {
+public class HighScoresFrame extends JFrame implements ActionListener, WindowListener {
     JPanel scoresPanel;
     JPanel buttonPanel;
     JButton newGame;
@@ -97,6 +100,10 @@ public class HighScoresFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == exit) {
+            EventLog log = EventLog.getInstance();
+            for (Event event : log) {
+                System.out.println(event.toString());
+            }
             System.exit(0);
         } else if (e.getSource() == newGame) {
             this.dispose();
@@ -104,4 +111,41 @@ public class HighScoresFrame extends JFrame implements ActionListener {
         }
     }
 
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        EventLog log = EventLog.getInstance();
+        for (Event event : log) {
+            System.out.println(event.toString());
+        }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
+    }
 }

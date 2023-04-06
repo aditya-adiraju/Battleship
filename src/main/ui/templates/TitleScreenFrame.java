@@ -1,6 +1,8 @@
 package ui.templates;
 
 import model.BattleShip;
+import model.Event;
+import model.EventLog;
 import persistence.JsonReader;
 import ui.Game;
 import ui.util.Icons;
@@ -9,12 +11,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 
 import static ui.CLI.GAME_PATH;
 
 // CLASS-LEVEL COMMENT: the title screen of the game
-public class TitleScreenFrame extends JFrame implements ActionListener {
+public class TitleScreenFrame extends JFrame implements ActionListener, WindowListener {
     JPanel buttonPanel;
     JPanel titlePanel;
     JPanel imagePanel;
@@ -131,6 +135,10 @@ public class TitleScreenFrame extends JFrame implements ActionListener {
             this.dispose();
             new HighScoresFrame();
         } else if (e.getSource() == exitGame) {
+            EventLog log = EventLog.getInstance();
+            for (Event event : log) {
+                System.out.println(event.toString());
+            }
             System.exit(0);
         }
     }
@@ -149,4 +157,41 @@ public class TitleScreenFrame extends JFrame implements ActionListener {
     }
 
 
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        EventLog log = EventLog.getInstance();
+        for (Event event : log) {
+            System.out.println(event.toString());
+        }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
+    }
 }
