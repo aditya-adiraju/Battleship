@@ -18,7 +18,7 @@ nights. Hence, I want to make this project to make this beloved game more access
 ## User-Stories
 
 
-As a user, I want to be able to:
+As a user, I want to be able to: 
 - name my player and opponent
 - add ships to my board
 - choose coordinates to strike on my opponent's board for my missiles
