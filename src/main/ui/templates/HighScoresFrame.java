@@ -111,11 +111,17 @@ public class HighScoresFrame extends JFrame implements ActionListener, WindowLis
         }
     }
 
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS: does nothing
     @Override
     public void windowOpened(WindowEvent e) {
 
     }
 
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS: prints event log
     @Override
     public void windowClosing(WindowEvent e) {
         EventLog log = EventLog.getInstance();
@@ -124,26 +130,41 @@ public class HighScoresFrame extends JFrame implements ActionListener, WindowLis
         }
     }
 
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS: does nothing
     @Override
     public void windowClosed(WindowEvent e) {
 
     }
 
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS: does nothing
     @Override
     public void windowIconified(WindowEvent e) {
 
     }
 
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS: does nothing
     @Override
     public void windowDeiconified(WindowEvent e) {
 
     }
 
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS: does nothing
     @Override
     public void windowActivated(WindowEvent e) {
 
     }
 
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS: does nothing
     @Override
     public void windowDeactivated(WindowEvent e) {
 
