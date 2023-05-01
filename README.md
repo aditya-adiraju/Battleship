@@ -1,4 +1,4 @@
-# CPSC 210 Personal Project: Battleship
+# Personal Project: Battleship
 
 ### What will this application do?
 
@@ -27,7 +27,7 @@ As a user, I want to be able to:
 - save the game against an opponent (Battleship is a long game that can take over 30 minutes)
 - load a pre-existing game of Battleship
 
-# Instructions for Grader
+# Instructions to Use Game Features
 
 - You can generate the first required action related to adding Xs to a Y by selecting new Game on the title screen, 
   pressing the button labelled "submit", pressing on the button map above to place a ship displayed below onto the map. 
@@ -43,7 +43,7 @@ As a user, I want to be able to:
 - You can reload the state of my application by selecting the load option from the file menu during a Battle Turn. 
   Follow the instructions above to reach a battle Turn.
 
-# Phase 4: Task 2
+# Events
 
 Examples of events in project including those that trigger on:
 - placing ships on specific coordinates on a player's board
@@ -53,7 +53,7 @@ Examples of events in project including those that trigger on:
 - saving score data
 - saving player data
 
-# Phase 4: Task 3
+# Reflection on Design and Future Updates
 
 Upon examining the diagram, it is apparent that substantial refactoring is required to make the design more effective.
 Especially, the number of associations with the Game class should be reduced to a single point from the rest of the GUI.
